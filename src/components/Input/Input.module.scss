@@ -1,0 +1,41 @@
+.form-input {
+    label {
+      display: inline-block;
+      margin: 12px 0 6px;
+    }
+    input {
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      display: block;
+      width: 100%;
+      font-size: 16px;
+      padding: 8px 12px;
+      color: #495057;
+      line-height: 1.5;
+    }
+    input:focus {
+      background-color: #fff;
+      border-color: #80bdff;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    span.error {
+      font-size: 1.2rem;
+      color: var(--red--color);
+    }
+    .invalid {
+      border-color: #ec7931;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(246, 161, 125, 0.25);
+    }
+    svg{
+        position: absolute;
+        padding: 4px;
+        right: 10px;
+        top: 45%;
+        transform: translateY(50%);
+        cursor: pointer;
+        color: #bbb;
+    }
+  }
+  

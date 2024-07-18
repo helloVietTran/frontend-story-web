@@ -1,0 +1,23 @@
+.top-list-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    color: #000;
+    a{
+        font-size: 1.3rem;
+        font-style: italic;
+        color: inherit;
+        &:hover{
+            text-decoration: underline;
+            color: var(--link-hover--color);
+        }
+    }
+}
+.top-list-header.dark{
+    color: #fff;
+    a:hover{
+        color: var(--orange--color);
+    }
+    
+}

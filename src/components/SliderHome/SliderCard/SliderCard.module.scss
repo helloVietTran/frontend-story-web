@@ -1,0 +1,65 @@
+.story-card{
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 14px);
+    a{
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+    .overlay{
+        background-color: #0e0e0e;
+        opacity: 0.6;
+        position: absolute;
+        z-index: 10;
+        height: 52px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    img{
+        height: var(--slider--height);
+        width: 100%;
+    }
+
+}
+.card-caption{
+    position: absolute;
+    z-index: 50;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    text-align: center;
+    width: 100%;
+    h3{
+      padding: 0 5px;
+       white-space: nowrap;
+       text-overflow: ellipsis;
+       overflow: hidden;
+       font-size: 1.5rem;
+       color: white;
+       font-weight: 400;
+       text-transform: capitalize;  
+    } 
+}
+.card-description{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 8px;
+    .chap{
+        font-size: 1.3rem;
+        color: white;
+        padding-right: 12px;
+    }
+    .update{
+        font-size: 1.1rem;
+        font-style: italic;
+        color: white;
+        .clock-icon{
+            padding-right: 5px;
+        }
+    }
+}

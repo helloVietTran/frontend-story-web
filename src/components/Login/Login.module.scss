@@ -1,0 +1,56 @@
+.login-form {
+  margin: 0 auto;
+  min-height: 900px;
+}
+
+.login-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+  a {
+    font-size: 1.3rem;
+    color: #288ad6;
+    &:hover {
+      color: #ae4ad9;
+      text-decoration: underline;
+    }
+  }
+}
+
+.login.dark {
+  color: white;
+  .login-action {
+    a {
+      color: var(--orange--color);
+      &:hover {
+        color: var(--red--color);
+      }
+    }
+  }
+  a{
+    color: var(--orange--color);
+    &:hover{
+      color: var(--red--color)
+    }
+  }
+}
+.loading {
+  background-color: #fff;
+  margin-top: 40px;
+  text-align: center;
+  min-height: 400px;
+  position: fixed;
+  top: -40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100000;
+  h2 {
+    margin: 20px 0;
+    font-weight: 500;
+  }
+  span {
+    margin-top: 20px;
+    color: var(--red--color);
+  }
+}

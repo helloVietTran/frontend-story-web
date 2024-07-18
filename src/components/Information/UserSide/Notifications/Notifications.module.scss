@@ -1,0 +1,15 @@
+.notifications{
+    .content{
+        display: flex;
+        gap: 8px;
+    }
+    img{
+        width: 40px;
+        height: 40px;
+    }
+}
+.notifications.dark{
+    td{
+        color: white;
+    }
+}

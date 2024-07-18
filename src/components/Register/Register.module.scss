@@ -1,0 +1,33 @@
+.register {
+  padding-bottom: 120px;
+  font-size: 1.4rem;
+}
+.register-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+  a {
+    font-size: 1.3rem;
+    color: #288ad6;
+    &:hover {
+      color: #ae4ad9;
+      text-decoration: underline;
+    }
+  }
+}
+.register.dark {
+  background-color: var(--dark--background--main--color);
+  color: white;
+  .register-form {
+    p {
+      color: white;
+    }
+  }
+  a{
+    color: var(--orange--color);
+    &:hover{
+      color: var(--red--color)
+    }
+  }
+}
+

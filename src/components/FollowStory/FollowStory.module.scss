@@ -1,0 +1,44 @@
+.comics-followed {
+  img {
+    margin-bottom: 15px;
+  }
+}
+.not-log-in {
+  p {
+    font-size: 1.4rem;
+  }
+  margin-bottom: 10px;
+}
+.not-log-in.dark {
+  p {
+    color: white;
+    a {
+      color: var(--orange--color);
+    }
+  }
+}
+
+// css component follow action
+.follow-action {
+  margin: 5px 0 7px;
+  font-size: 1.2rem;
+
+  svg {
+    padding-right: 4px;
+  }
+
+  .mark-as-read {
+    color: #23a903;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .unfollow,
+  .follow {
+    color: #d9534f;
+    float: right;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+
+.next-btn, .prev-btn{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    color: #868484;
+    background-color: #d0d0ce;
+    opacity: 0.5;
+    border: #6b6c70;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border-radius: 4px;
+    .left-icon, .right-icon{
+        font-size: 2.4rem;
+    }
+    &:hover{
+        opacity: 0.65;
+    }
+}
+.prev-btn{
+    left: 12px;
+    z-index: 2;
+}
+.next-btn{
+    right: 12px;
+}

@@ -1,0 +1,18 @@
+.story-detail-item{
+  margin-bottom: 7px;
+  line-height: 27px;
+  font-size: 1.6rem;
+  color: #777676;
+  svg {
+    padding-right: 4px;
+  }
+  span{
+    text-transform: capitalize;
+  }
+}
+.story-detail-item.dark{
+    color: white;
+    a{
+        color: var(--orange--color);
+    }
+}

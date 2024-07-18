@@ -1,0 +1,33 @@
+.shop {
+  font-size: 1.4rem;
+  .text-note {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    span {
+      color: red;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  .product {
+    max-width: 100%;
+    margin-bottom: 10px;
+    position: relative;
+    margin: 15px 0;
+    .default-avatar {
+      width: 100%;
+    }
+    .image {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(1.12);
+    }
+  }
+}
+.shop.dark {
+  color: white;
+}

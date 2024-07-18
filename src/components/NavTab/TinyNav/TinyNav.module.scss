@@ -1,0 +1,38 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  .active {
+    font-weight: 700;
+    position: relative;
+  }
+  li {
+    padding: 0 10px;
+  }
+  li.active::after {
+    content: " ";
+    display: block;
+    right: 0;
+    height: 3px;
+    background: #d0b32e;
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+  }
+
+  a {
+    margin-right: 4px;
+  }
+}
+.nav.dark {
+  a {
+    color: var(--orange--color);
+    &:hover {
+      color: var(--red--color);
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.disabled, .disabled span{
+    user-select: none;
+    cursor: default;
+    color: silver;
+    text-decoration: none!important;
+    &:hover{
+        color: silver;
+    }
+    margin-left: 4px;
+}
+.active{
+    margin-left: 4px;
+    text-transform: unset;
+    &:hover{
+        text-decoration: underline;
+    }
+}

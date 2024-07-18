@@ -1,0 +1,18 @@
+.secondary-heading {
+  .heading {
+    color: inherit;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .heading::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #ee2c74;
+    margin-top: 5px;
+  }
+}
+.secondary-heading.dark {
+  color: white;
+}

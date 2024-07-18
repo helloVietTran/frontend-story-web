@@ -1,0 +1,42 @@
+.user-point {
+  p {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    span {
+      color: red;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  .note {
+    font-size: 1.4rem;
+    padding-left: 40px;
+    li {
+      list-style: disc;
+    }
+  }
+}
+.post-heading {
+  font-weight: 400;
+  margin-bottom: 20px;
+  border-left: 3px solid #ee2c74;
+  padding-left: 10px;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  min-height: 27px;
+  span {
+    color: red;
+  }
+}
+
+.user-point.dark {
+  color: white;
+  a {
+    color: var(--orange--color);
+    &:hover {
+      color: var(--red--color);
+    }
+  }
+}

@@ -1,0 +1,125 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 8px 0;
+}
+
+.icon-box {
+  a {
+    .toggle-btn {
+      color: #ff9601;
+      font-size: 2.4rem;
+    }
+    //css dark-theme
+    .toggle-btn.dark {
+      color: white;
+    }
+    .comment-icon {
+      color: #fff;
+      font-size: 2.4rem;
+      margin-left: 15px;
+    }
+  }
+}
+.account-nav {
+  display: flex;
+  gap: 4px;
+  color: white;
+  li > a {
+    font-size: 1.4rem;
+    color: inherit;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.logo-link {
+  img {
+    margin-top: 4px;
+  }
+}
+
+.user-nav {
+  position: relative;
+  color: white;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  img {
+    height: 20px;
+    padding-right: 4px;
+  }
+  svg {
+    padding-left: 4px;
+  }
+}
+//responsive
+.search-btn, .navBar-toggle{
+  display: none;
+  position: absolute;
+  cursor: pointer;
+}
+.search-btn{
+  right: 48px;
+  border-radius: 2px;
+  padding: 1px 5px 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  svg {
+    font-size: 2.2rem;
+    color: #fff;
+  }
+}
+.navBar-toggle {
+  right: 8px;
+  background-color: #d0b32e;
+  border-radius: 2px;
+  padding: 1px 5px 0;
+  transition: background-color 0.1s linear;
+  svg {
+    font-size: 28px;
+    color: #fff;
+  }
+}
+.navBar-toggle.open{
+  background-color: #a68f25;
+}
+@media (max-width: 767px) {
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: unset;
+    position: relative;
+  }
+  .navbar-brand{
+    float: left;
+    padding: 0 15px;
+  }
+  .icon-box{
+    float: left;
+  }
+
+  .search-box {
+    display: none;
+  }
+  
+  .sm-hide{
+    display: none;
+  }
+  .navBar-toggle{
+    display: block;
+  }
+  .search-btn{
+    display: block;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .search-box {
+    width: 295px;
+  }
+}

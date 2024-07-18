@@ -1,0 +1,49 @@
+.user-page {
+  padding: 15px 0;
+  min-height: 800px;
+}
+.user-detail {
+  font-size: 1.4rem;
+  .avatar {
+    width: 90px;
+    background-color: transparent;
+    vertical-align: middle;
+    min-width: 40px;
+    border-radius: 2px;
+    margin-right: 8px;
+    overflow: hidden;
+    float: left;
+    img {
+      height: 90px;
+      width: 90px;
+      object-fit: cover;
+    }
+  }
+}
+.info {
+  .name {
+    font-weight: 700;
+    color: #03f;
+    font-size: 1.3rem;
+  }
+}
+//css theme
+.user-page.dark {
+  color: white;
+  .name {
+    color: #d2d23f;
+  }
+  p {
+    color: inherit;
+  }
+
+  td a {
+    color: var(--orange--color);
+    &:hover {
+      color: var(--red--hover--color);
+    }
+    &:active {
+      color: var(--red--hover--color);
+    }
+  }
+}

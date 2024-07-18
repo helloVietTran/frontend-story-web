@@ -1,0 +1,24 @@
+.breadcumb{
+    text-transform: capitalize;
+    padding-bottom: 10px;
+    font-size: 1.4rem;
+    a:hover{
+        text-decoration: underline;
+    }
+    svg{
+        padding: 0 6px;
+        color: #ccc;
+        font-size: 1rem;
+    }
+}
+.breadcumb.dark{
+    a{
+        color: var(--orange--color);
+        &:hover{
+            color: var(--red--color);
+        }
+    }
+    .default{
+        color: white;
+    }
+}

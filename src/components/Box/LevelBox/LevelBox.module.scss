@@ -1,0 +1,27 @@
+.level-box {
+  display: inline-block;
+  position: relative;
+  background-color: #ccc;
+  padding: 1px 4px;
+  font-size: 1.1rem;
+  border-radius: 3px;
+  border: 1px solid red;
+  margin-right: 10px;
+  .level {
+    color: red;
+  }
+  .process-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d0b32e;
+    opacity: 0.5;
+  }
+}
+.point-box {
+  min-width: 36px;
+  text-align: center;
+  background-color: #f9f9f9;
+}

@@ -1,0 +1,33 @@
+.story-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  time {
+    font-size: 1.2rem;
+    color: #999;
+    line-height: 20px;
+    font-style: italic;
+    float: right;
+    max-width: 47%;
+    overflow: hidden;
+  }
+  a {
+    font-size: 1.3rem;
+    color: #000;
+  }
+}
+.comment.dark {
+  .comic-name {
+    color: var(--orange--color);
+    &:hover {
+      color: var(--red--color);
+    }
+  }
+  td {
+    color: white;
+  }
+}

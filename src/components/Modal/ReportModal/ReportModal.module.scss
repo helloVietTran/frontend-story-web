@@ -1,0 +1,46 @@
+.modal::after{
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 9999;
+}
+.report-chapter{
+    width: 430px;
+    padding: 15px 20px 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 10000;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 
+                0 6px 20px rgba(0, 0, 0, 0.15);
+    h2{
+        font-size: 2rem;
+        text-align: center;
+        margin: 10px 0 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+    select, input{
+        height: 49px;
+    }
+    p{
+        font-size: 1.4rem;
+        line-height: 25px;
+        color: red;
+    }
+    .report-action{
+        margin-top: 15px;
+        float: right;
+        display: flex;
+        gap: 5px;
+    }
+}
+

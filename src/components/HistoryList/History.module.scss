@@ -1,0 +1,115 @@
+.history{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 15px 0 15px 15px;
+    color: #000;
+    .history-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        h3{
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--blue--heading);
+        }
+        a{
+            font-size: 1.3rem;
+            font-style: italic;
+            color: inherit;
+            &:hover{
+                text-decoration: underline;
+                color: var(--link-hover--color);
+            }
+        }
+    }
+    .history-item{
+        position: relative;
+        padding: 10px 0;
+        overflow: hidden;
+        border-top: 1px solid #dedede;
+        text-transform: capitalize;
+        img{
+            position: absolute;
+            height: 55px;
+            width: 55px;
+            object-fit: cover;
+        }
+        .caption{
+           padding-left: 70px;
+           margin-bottom: 8px;
+           .name{
+            color: inherit;
+           }
+           h3{
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-right: 4px;
+            &:hover{
+                color: var(--link-hover--color);
+            }
+           }
+           p{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+           }
+           .text{
+            font-size: 1.3rem;
+            color: silver;
+            svg{
+                padding-left: 4px;
+            }
+            &:hover{
+                color: var(--link-hover--color);
+            }
+           }
+           .delete{
+                color: inherit;
+                font-size: 1.3rem;
+                font-style: italic;
+                padding-right: 2px;
+                &:hover{
+                    color: var(--link-hover--color);
+                }
+                svg{
+                    padding-right: 2px;
+                }
+           }
+        }
+    }
+}
+.history.dark{
+    color: white;
+    .history-header{
+        h3{
+            color: var(--orange--color);
+        }
+        a{
+            &:hover{
+                color: inherit;
+            }
+        }
+    }
+    .history-item{
+        h3{
+            &:hover{
+                color: var(--red--hover--color);
+            }
+        }
+        .text{
+            &:hover{
+                color: var(--red--hover--color);
+            }
+        }
+        .delete{
+            &:hover{
+                color: var(--red--hover--color);
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.btn{
+    display: inline-block;
+    text-align: center;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-size: 1.4rem;
+    line-height: 1.42857143;
+    border-radius: 4px;
+}
+.red{
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+.yellow{
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+.green{
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.default{
+
+}
+.blue{
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+.disabled{
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: alpha(opacity = 65);
+    box-shadow: none;
+}

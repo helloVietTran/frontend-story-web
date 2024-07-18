@@ -1,0 +1,17 @@
+.primary-heading{
+    display: flex;
+    align-items: center;
+    color: var(--blue--heading);
+    h3{
+        padding-right: 4px;
+        font-size: 2rem;
+        font-weight: 400;
+        color: inherit;
+    }
+    svg{
+        color: inherit;
+    }
+}
+.primary-heading.dark{
+    color: var(--orange--color);
+}

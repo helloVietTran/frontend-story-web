@@ -1,0 +1,20 @@
+.post-heading {
+    font-weight: 400;
+    border-left: 3px solid #ee2c74;
+    padding-left: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    min-height: 27px;
+    span {
+      font-size: 1.3rem;
+      font-style: italic;
+      span {
+        color: red;
+      }
+    }
+    .user-point-current {
+      font-size: inherit;
+      font-style: inherit;
+      color: red;
+    }
+  }

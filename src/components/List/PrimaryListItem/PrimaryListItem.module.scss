@@ -1,0 +1,87 @@
+.primary-list-item {
+  position: relative;
+  padding: 10px 0;
+  overflow: hidden;
+  border-top: 1px solid #dedede;
+  text-transform: capitalize;
+  color: #000;
+}
+.image {
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+}
+.body {
+  padding-left: 70px;
+  a {
+    color: inherit;
+  }
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 4px;
+    text-transform: capitalize;
+    &:hover {
+      color: var(--link-hover--color);
+    }
+  }
+  time{
+    text-transform: lowercase;
+    color: silver;;
+    font-size: 1.1rem;
+    font-style: italic;
+    padding-right: 2px;
+    svg{
+        padding-right: 2px;
+    }
+  }
+}
+.chapter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a:hover{
+      color: var(--link-hover--color);
+    }
+}
+.delete-btn{
+    color: inherit;
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-right: 4px;
+    &:hover{
+        color: var(--link-hover--color);
+    }
+    svg{
+        padding-right: 2px;
+    }
+}
+.view {
+  color: #666;
+  font-size: 1.3rem;
+  font-style: italic;
+  padding-right: 2px;
+  svg {
+    padding-right: 2px;
+  }
+}
+
+.primary-list-item.dark{
+  color: #fff;
+  .body{
+    a:hover {
+      color: var(--red--hover--color);
+    }
+    h3:hover {
+      color: var(--red--hover--color)!important;
+    }
+  }
+  .view{
+    color: white;
+  }
+}

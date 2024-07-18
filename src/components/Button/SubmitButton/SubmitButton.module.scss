@@ -1,0 +1,30 @@
+.btn {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1.4rem;
+}
+.normal {
+  color: #4a4a4a;
+  background: #fdd835;
+  border-color: #fdd835;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.google {
+  cursor: pointer;
+  position: relative;
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+  &:hover {
+    background-color: #c23321;
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  .google-icon {
+    position: absolute;
+    left: 0;
+    font-size: 1.6rem;
+    padding-left: 4px;
+  }
+}

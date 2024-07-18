@@ -1,0 +1,26 @@
+.icon-tick, .icon-cross, .icon-checkbox{
+    display: inline-block;
+    margin: 0 5px;
+    background: url(/public/images/check-box/icon-checkbox.png) no-repeat #fff;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15) inset;
+    transition: all 0.2s;
+}
+/*boxshadow inset để áp dụng bóng trong phần tử */
+/* 0px là X, vị trí -18px là icon trống, -36px là check, kích thước mặc định là 18pxx18px*/
+.icon-checkbox{
+    background-position: 0 -18px;
+}
+.icon-tick{
+    background-position: 0 -36px;
+}
+.icon-hot{
+    background: url(/public/images/icon-hot/icon-hot.gif) no-repeat;
+    position: absolute;
+    height: 11px;
+    width: 28px;
+    top: 5px;
+    right: 5px;
+}

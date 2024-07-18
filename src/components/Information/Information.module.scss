@@ -1,0 +1,44 @@
+.user-sidebar {
+  font-size: 1.4rem;
+  section {
+    background-color: #222;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .user-text {
+    padding: 15px 15px 15px 10px;
+    span {
+      display: block;
+      color: white;
+      opacity: 0.8;
+      text-overflow: ellipsis;
+    }
+    .user-name {
+      text-transform: uppercase;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100px;
+    }
+  }
+
+  img {
+    width: 80px;
+    margin-right: 4px;
+  }
+  svg {
+    color: white;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 767px){
+  .user-sidebar{
+    section{
+      justify-content: start;
+    }
+  }
+}

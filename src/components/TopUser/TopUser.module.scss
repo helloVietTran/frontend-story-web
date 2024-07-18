@@ -1,0 +1,34 @@
+.topUser-item {
+  position: relative;
+  overflow: hidden;
+  text-transform: capitalize;
+  img {
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+  }
+  
+}
+.info{
+  border-top: 1px solid #dedede;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.body {
+  padding-left: 95px;
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: inherit;
+    margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 4px;
+  }
+}
+
+.topUser-item.dark{
+  color: white;
+}

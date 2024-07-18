@@ -1,0 +1,38 @@
+.hidden{
+    display: none;
+}
+.info-sidebar{
+    font-size: 1.4rem;
+    margin: 20px 0;
+    li{
+        background: #f2f2f2;
+        box-shadow: 0 0 1px transparent;
+        &:hover{
+            background-color: #e9e9e9;
+        }
+
+    }
+    li.active{
+        background-color: #e6e6e6;
+        border-left: 3px solid #ee2c74;
+        font-weight: 700;
+    }
+    a{
+        display: block;
+        width: 100%;
+        color: #333;
+        padding: 9px 30px;
+        svg{
+            padding-right: 4px;
+            font-size: 1.3rem;
+        }
+    }
+}
+
+@media (min-width: 767px) and (max-width: 991px){
+    .info-sidebar{
+        a{
+            padding: 9px 15px;
+        }
+    }
+}

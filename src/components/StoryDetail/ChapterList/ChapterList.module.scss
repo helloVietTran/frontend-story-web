@@ -1,0 +1,66 @@
+.chapter-list {
+  .heading {
+    padding: 5px 10px 5px 5px;
+  }
+  h2 {
+    color: #2980b9;
+    border-bottom: 2px solid #2980b9;
+    font-weight: 400;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin: 10px 0;
+    padding-bottom: 2px;
+  }
+  nav {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .view-more {
+    display: block;
+    text-align: center;
+    border: 1px solid #ddd;
+    line-height: 35px;
+    &:hover {
+      color: var(--purple--color);
+      text-decoration: underline;
+    }
+
+    svg {
+      padding-right: 4px;
+    }
+  }
+}
+.chapter-item {
+  border-bottom: 1px dashed #ddd;
+  padding: 6px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  a {
+    color: #333;
+    &:hover {
+      color: #03f;
+    }
+  }
+  span.small {
+    color: #999;
+    font-size: 1.3rem;
+    font-style: italic;
+    text-align: center;
+  }
+}
+
+.chapter-list.dark {
+  a{
+    color: white;
+  }
+  h2 {
+    color: var(--orange--color);
+  }
+  .chapter-item {
+    a:hover {
+      color: var(--red--color);
+    }
+  }
+  
+}
