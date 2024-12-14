@@ -27,7 +27,7 @@ const LevelBox = ({
 }
 LevelBox.propTypes = {
   level: PropTypes.number,
-  point: PropTypes.number,
+  point: PropTypes.any,
   process: PropTypes.number,
 }
 

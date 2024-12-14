@@ -1,40 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classname from "classnames/bind";
-import { NavLink, useSearchParams, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import styles from "./Pagination.module.scss";
 import useTheme from "../../customHook/useTheme";
-import { storyApi } from "../../config/api";
 
 const cx = classname.bind(styles);
 
-function Pagination({ queryField }) {
+function Pagination({ data }) {
   const themeClassName = useTheme(cx);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page")) || 1;
-  const [totalStories, setToTalStories] = useState(0);
-  const storiesPerPage = 28;
+
+  if(!data){
+    return;
+  }
+  // lấy từ data
+  const totalStories  = data.totalElements;
+  const totalPages = data.totalPages;
+  const currentPage = data.currentPage;
+  const storiesPerPage = 32;
   const pages = [];
 
-  useEffect(() => {
-    const fetchTotalStories = async () => {
-      try {
-        const res = await storyApi.getTotalStories(queryField);
-        setToTalStories(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchTotalStories();
-  }, [queryField]);
-  
   if (totalStories <= storiesPerPage) {
     return;
   }
-  const totalPages = Math.ceil(totalStories / storiesPerPage);
 
   for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
@@ -74,7 +64,7 @@ function Pagination({ queryField }) {
 
         <li className={cx("page-item")}>
           <span
-            className={currentPage >= totalPages ? cx("disabled") : undefined}
+            className={currentPage >= totalPages ? cx("disabled") : null}
             onClick={() => goToNextPage()}
           >
             ›

@@ -5,10 +5,14 @@ import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
+import Container from "../Layout/Container/Container";
+import Grid from "../Layout/Grid/Grid";
+import Row from "../Layout/Row/Row";
+import Col from "../Layout/Col/Col";
+
 import useTheme from "../../customHook/useTheme";
 import hashtag from "./hastag";
 import styles from "./Footer.module.scss";
-import { Container, Grid, Row, Col } from "../Layout";
 
 const cx = classNames.bind(styles);
 function Footer() {

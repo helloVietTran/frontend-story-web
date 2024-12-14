@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 
+import Grid from "@/components/Layout/Grid/Grid";
+import Row from "@/components/Layout/Row/Row";
+import Col from "@/components/Layout/Col/Col";
+
 import styles from "./GenreMenu.module.scss";
-import { options } from "../../../config/filter";
-import { Grid, Row, Col } from "../../Layout";
+import { options } from "@/config/filter";
 
 const cx = classNames.bind(styles);
 

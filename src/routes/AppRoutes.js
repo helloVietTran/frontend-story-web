@@ -1,5 +1,6 @@
-import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, Navigate, } from "react-router-dom";
+import {  useDispatch, useSelector } from "react-redux";
 
 import Home from "../pages/home";
 import Hot from "../pages/hot";
@@ -19,16 +20,26 @@ import ResetPassword from "../pages/reset-password";
 import NotFound from "../pages/not-found";
 import UserPage from "../pages/user";
 
-import UserProfile from "../components/Information/UserSide/UserProfile";
-import ChangePassword from "../components/Information/UserSide/ChangePassword";
-import UserPoint from "../components/Information/UserSide/UserPoint";
-import Shop from "../components/Information/UserSide/Shop";
-import Notifications from "../components/Information/UserSide/Notifications";
-import Dashboard from "../components/Information/UserSide/Dashboard";
-import Comment from "../components/Information/UserSide/Comment";
-import ComicFollowed from "../components/Information/UserSide/ComicFollowed";
+import UserProfile from "@/components/Information/UserOptionSide/UserProfile/UserProfile";
+import ChangePassword from "@/components/Information/UserOptionSide/ChangePassword/ChangePassword";
+import UserPoint from "@/components/Information/UserOptionSide/UserPoint/UserPoint";
+import Shop from "@/components/Information/UserOptionSide/Shop/Shop";
+import Notifications from "@/components/Information/UserOptionSide/Notifications/Notifications";
+import Dashboard from "@/components/Information/UserOptionSide/Dashboard/Dashboard";
+import Comment from "@/components/Information/UserOptionSide/Comment/Comment";
+import ComicFollowed from "@/components/Information/UserOptionSide/ComicFollowed/ComicFollowed";
 
-const AppRoutes = ({ isAuthenticated }) => {
+import { introspect } from "@/redux/authSlice";
+
+const AppRoutes = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector(state => state.auth);
+
+  useEffect(()=> {
+    dispatch(introspect());// action check token
+  }, [dispatch])
+
+
   const routes = [
     { path: "/", element: <Home /> },
     { path: "/hot", element: <Hot /> },
@@ -45,11 +56,11 @@ const AppRoutes = ({ isAuthenticated }) => {
     { path: "/forgot-password", element: <ForgotPassword /> },
     { path: "/user/:userID", element: <UserPage /> },
     { path: "/story/:storyName/:storyID", element: <Story /> },
-    { path: "/story/:storyName/:storyID/:chap", element: <Chapter /> },
+    { path: "/story/:storyName/:storyID/:chap/", element: <Chapter /> },
     { path: "*", element: <NotFound /> },
     {
       path: "/secure",
-      element: isAuthenticated ? <InformationPage /> : <Navigate to="/login" />,
+      element: isAuthenticated ? <InformationPage /> : <Navigate to='/login'/>,
       children: [
         { path: "dashboard", element: <Dashboard /> },
         { path: "userProfile", element: <UserProfile /> },

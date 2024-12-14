@@ -1,33 +1,32 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import classNames from "classnames/bind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faInfoCircle,
-  faHouseChimney,
-  faList,
   faChevronRight,
   faChevronLeft,
-  faHeart,
-  faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import PrimaryButton from "../Button/PrimaryButton/PrimaryButton";
+import Container from "../Layout/Container/Container";
+import ChapterImageList from "./ChapterImageList/ChapterImageList";
+import ChapterHeader from "./ChapterHeader/ChapterHeader";
+import CommentList from "../CommentList/CommentList";
+
 import styles from "./ChapterDetail.module.scss";
-import { PrimaryButton } from "../Button";
-import BreadCumb from "../BreadCumb";
-import CommentBox from "../CommentBox/CommentBox";
-import { viewCountApi, storyApi, readingStoryApi } from "@/config/api";
-import ChapterSelect from "./ChapterSelect";
-import addLocalHistory from "@/utils/addLocalHistory";
 import useTheme from "@/customHook/useTheme";
-import { Container } from "../Layout";
-import { ReportModal } from "../Modal"; 
-import ImageList from "./ImageList";
+import createQueryFn from "@/utils/createQueryFn";
+import {
+  getChapterByStoryIdAndChap,
+  getChapterResource,
+} from "@/api/chapterApi";
+import { getStoryById } from "@/api/storyApi";
+import { getCommentsByChapterId } from "@/api/commentApi";
 
 const cx = classNames.bind(styles);
 
 function ChapterDetail() {
-  const navRef = useRef();
   const nextBtnRef = useRef();
   const prevBtnRef = useRef();
 
@@ -35,268 +34,117 @@ function ChapterDetail() {
 
   const navigate = useNavigate();
   const { storyName, storyID, chap } = useParams();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
 
-  const [currentChapter, setCurrentChapter] = useState(parseInt(chap.slice(5))); // lấy chapter hiện tại
-  const [story, setStory] = useState(null);
-  const [isFixed, setIsFixed] = useState(false);
-  const [isOpenReportModal, setIsOpenReportModal] = useState(false);
-  
-  const [counter, setCounter] = useState(3);// đọc đủ 20s mới tính view và lưu lịch sử đọc truyện
+  const [currentChapter, setCurrentChapter] = useState(+chap.slice(5));
 
-  const [visitedStory, setVisitedStory] = useState({
-    _id: "",
-    name: "",
-    slug: "",
-    url: "",
-    chap: "",
+  // get story
+  const { data: story } = useQuery({
+    enabled: !!storyID,
+    queryKey: ["story", storyID],
+    queryFn: createQueryFn(getStoryById),
+    staleTime: 5 * 60 * 1000,
   });
-  // bộ đếm về 0 thì tính view và lưu lịch sử đọc truyện
+  // get chapter
+  const { data: chapter } = useQuery({
+    enabled: !!storyID && !!chap.slice(5),
+    queryKey: ["chapter", storyID, parseInt(chap.slice(5))],
+    queryFn: createQueryFn(getChapterByStoryIdAndChap),
+  });
+  // get resource
+  const { data: resource } = useQuery({
+    enabled: !!chapter?.id,
+    queryKey: ["chapterResource", chapter?.id],
+    queryFn: createQueryFn(getChapterResource),
+  });
+
+  // get Comment
+  const { data: comments } = useQuery({
+    enabled: !! chapter,
+    queryKey: ["storyComments", chapter.id, page],
+    queryFn: createQueryFn(getCommentsByChapterId),
+  });
+
+  //********* IF URL CHANGE, IT WILL NAVIGATE TO NEW CHAPTER*/
   useEffect(() => {
-    if (counter === 0) {
-        return;
-    }
-    const timer = setInterval(() => {
-        setCounter(prevCounter => prevCounter - 1);
-    }, 1000);
+    navigate(`/story/${storyName}/${storyID}/chap-${currentChapter}`);
+  }, [currentChapter, navigate, storyID, storyName]);
 
-    return () => clearInterval(timer);
-}, [counter]);
-
-  // call api
-  useEffect(() => {
-    const fetchStory = async () => {
-      try {
-        const res = await storyApi.getStory(storyID);
-        setStory(res.data);
-        navigate(`/story/${storyName}/${storyID}/chap-${currentChapter}`);
-      } catch (error) {
-        navigate("/not-found");
-      }
-    };
-
-    fetchStory();
-  }, [storyID, currentChapter, navigate, storyName]);
-
-  // fixed chapter-nav
-  useEffect(() => {
-    const handleScroll = () => {
-      //console.log(navRef.current.getBoundingClientRect().top)
-      const currentScrollPos = window.scrollY;
-      setIsFixed(currentScrollPos > 314);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleKeyDown = (event) => {
-    if (event.key === "ArrowRight") {
-      if (!nextBtnRef.current.classList.contains(cx("disabled"))) {
-        setCurrentChapter((prev) => prev + 1);
-      }
-    } 
-    else if (event.key === "ArrowLeft") {
-      if (!prevBtnRef.current.classList.contains(cx("disabled"))) {
-        setCurrentChapter((prev) => prev - 1);
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
-  // chuyển chap và cuộn về đầu trang
-  const handleNextChap = async() => {
+  // ******* HANDLE CHANGE CHAPTER BUTTON *******
+  const handleNextChap = () => {
     const nextChapter = currentChapter + 1;
     if (!nextBtnRef.current.classList.contains(cx("disabled"))) {
       setCurrentChapter(nextChapter);
       window.scrollTo(0, 0);
     }
-  
-    try {
-      if(counter <=0){
-        await readingStoryApi.addHistory(story.name, story.imgSrc, chap.slice(5), story.slug, story._id);
-        await viewCountApi.incrViewCount(story._id);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
-  const handlePrevChap = async() => {
+  const handlePrevChap = () => {
     const prevChapter = currentChapter - 1;
     if (!prevBtnRef.current.classList.contains(cx("disabled"))) {
       setCurrentChapter(prevChapter);
       window.scrollTo(0, 0);
     }
-    try {
-      if(counter <=0){
-        await readingStoryApi.addHistory(story.name, story.imgSrc, chap.slice(5), story.slug, story._id);
-        await viewCountApi.incrViewCount(story._id);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
-
-  // chuyển hướng khi ấn vào thẻ select
-  const handleChangeSelectedChap = (event) => {
-    setCurrentChapter(parseInt(event.target.value));
-  };
-
-  if (!story) {
-    return (
-      <div className="text-center">
-        <img src="/images/loading/loading.gif" alt="loading"/>
-      </div>
-    );
-  }
 
   return (
     <div className={`${cx("chapter-detail")} ${themeClassName}`}>
-      <Container fill>
-        <div className={cx("chapter-header")}>
-          <BreadCumb comicName={story?.name} />
+      {story && chapter && resource && (
+        <>
+          <ChapterHeader
+            story={story}
+            chapter={chapter}
+            currentChapter={currentChapter}
+            setCurrentChapter={setCurrentChapter}
+            nextBtnRef={nextBtnRef}
+            prevBtnRef={prevBtnRef}
+            handleNextChap={handleNextChap}
+            handlePrevChap={handlePrevChap}
+          />
 
-          <h1>
-            <div className={cx("name")}>
-              <Link>
-                {story?.name + " "}
-              </Link>
-              <span>
-                -
-                {" " + chap.replace("-"," ")}
-              </span>
-              <span className={cx("update")}>
-                
-              </span>
-            </div>
-          </h1>
-        </div>
+          <ChapterImageList data={resource} />
 
-        <div className={cx("reading-control")}>
-          <div className={cx("bug")}>
-            <Link onClick={()=> setIsOpenReportModal(true)}>
-              <PrimaryButton
-                color="yellow"
-                title="Báo lỗi"
-                icon={faTriangleExclamation}
-                iconPosition={"left"}
-              />
-            </Link>
-            {
-                isOpenReportModal && 
-                <ReportModal 
-                  onClick={setIsOpenReportModal} 
-                  storyName={story.name}
-                  atChapter={currentChapter}
-                />
-              }
-          </div>
-          <div className={`mb10 ${cx("alert")}`}>
-            <FontAwesomeIcon icon={faInfoCircle} />
-            <em>Sử dụng mũi tên trái (←) hoặc phải (→) để chuyển chapter</em>
-          </div>
-
-          <nav
-            className={`${cx("chapter-nav")} ${isFixed ? cx("fixed") : ""}`}
-            ref={navRef}
+          <Container
+            backgroundColor={themeClassName === "" ? "#fff" : "#252525"}
           >
-            <Link to="/" className={cx("home")}>
-              <FontAwesomeIcon icon={faHouseChimney} />
-            </Link>
+            <div className={cx("reading-nav-bottom")}>
+              <PrimaryButton
+                disabled={story.newestChapter === currentChapter + 1}
+                color="red"
+                onClick={handlePrevChap}
+                icon={faChevronLeft}
+                iconPosition="left"
+                title="Chap trước"
+              />
+              <span className="mr8"></span>
+              <PrimaryButton
+                disabled={
+                  story.newestChapter === 1 ||
+                  currentChapter === story.newestChapter
+                }
+                color="red"
+                onClick={handleNextChap}
+                icon={faChevronRight}
+                iconPosition="right"
+                title="Chap sau"
+              />
+            </div>
+            <div className="pt15"></div>
+            <BreadCumb comicName={story?.name} />
+          </Container>
 
-            <Link to={`/story/${storyName}/${storyID}`} className={cx("home")}>
-              <FontAwesomeIcon icon={faList} />
-            </Link>
-
-            <Link
-              className={`${cx("control-btn", "prev")} 
-              ${
-                currentChapter === 1 ? cx("disabled") : undefined
-              }`}
-              onClick={handlePrevChap}
-              ref={prevBtnRef}
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </Link>
-
-            <ChapterSelect
-              currentChapter={currentChapter}
-              lastChap={story.newestChapter}
-              handleChangeSelectedChap={handleChangeSelectedChap}
-            />
-
-            <Link
-              className={`${cx("control-btn", "next")} 
-                        ${
-                          story.newestChapter === 1 || currentChapter === story.newestChapter
-                          ? cx("disabled")
-                          : undefined
-                        }`}
-              onClick={handleNextChap}
-              ref={nextBtnRef}
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </Link>
-
-            <PrimaryButton
-              color="green"
-              title="Theo dõi"
-              onClick={() => {}}
-              icon={faHeart}
-              iconPosition={"right"}
-            />
-          </nav>
-        </div>
-      </Container>
-
-      <ImageList />
-
-      <Container backgroundColor={themeClassName === "" ? "#fff" : "#252525"}>
-        <div className={cx("reading-nav-bottom")}>
-          <PrimaryButton
-            disabled={story.newestChapter === currentChapter + 1}
-            color="red"
-            onClick={handlePrevChap}
-            icon={faChevronLeft}
-            iconPosition="left"
-            title="Chap trước"
-          />
-          <span className="mr8"></span>
-          <PrimaryButton
-            disabled={story.newestChapter === 1 || currentChapter === story.newestChapter}
-            color="red"
-            onClick={handleNextChap}
-            icon={faChevronRight}
-            iconPosition="right"
-            title="Chap sau"
-          />
-        </div>
-        <div className="pt15"></div>
-        <BreadCumb comicName={story?.name} />
-      </Container>
-
-      <Container
-        backgroundColor={themeClassName === "" ? "#f6f7f8" : "#252525"}
-      >
-        <div className="pb15">
-          <CommentBox />
-        </div>
-      </Container>
+          <Container
+            backgroundColor={themeClassName === "" ? "#f6f7f8" : "#252525"}
+          >
+            <div className="pb15">
+              {comments && <CommentList data={comments.data} />}
+            </div>
+          </Container>
+        </>
+      )}
     </div>
   );
 }
 
 export default ChapterDetail;
-/*setVisitedStory({
-          _id: res.data._id,
-          name: res.data.name,
-          slug: res.data.slug,
-          url: res.data.url,
-          chap: currentChapter,
-        }); */

@@ -1,0 +1,13 @@
+.theme-box{
+    a {
+      .toggle-theme-btn {
+        color: #ff9601;
+        font-size: 2.4rem;
+      }
+      //css dark-theme
+      .toggle-theme-btn.dark {
+        color: white;
+      }
+   
+    }
+  }

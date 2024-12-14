@@ -1,34 +1,29 @@
-import { useState, useEffect} from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockFour } from "@fortawesome/free-regular-svg-icons";
 
-import styles from "./NewComment.module.scss";
-import { PrimaryHeading } from "../Heading";
-import { ListFrame } from "../List";
-import useTheme from "../../customHook/useTheme";
-import { commentApi } from "../../config/api";
-import calculateTime from "../../utils/calculateTime";
+import PrimaryHeading from "../Heading/PrimaryHeading/PrimaryHeading";
+import ListFrame from "../List/ListFrame/ListFrame";
+
+import styles from "./NewComment.module.scss"
+import useTheme from "@/customHook/useTheme";
+import createQueryFn from "@/utils/createQueryFn";
+import { getNewComment } from "@/api/commentApi";
 
 const cx = classNames.bind(styles);
 
 function NewComment() {
   const themeClassName = useTheme(cx);
-  const [newCommentData, setNewCommentData] = useState([]);
 
-  useEffect(() => {
-    const fetchNewCommentData = async () => {
-      try {
-        const res = await commentApi.getNewComment();
-        setNewCommentData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchNewCommentData();
-  }, []);
+  const {data} = useQuery({
+    queryKey: ["newComments"],
+    queryFn: createQueryFn(getNewComment),
+    onError: (error) => {
+      console.error("Error fetching new comment:", error);
+    },
+  });
   
   return (
     <ListFrame>
@@ -37,17 +32,17 @@ function NewComment() {
         bottom={10}
         size={1.6}
       />
-      {newCommentData.map((comment) => {
+      {data && data.data.map((comment) => {
         return (
-          <div className={cx("newComment-item", themeClassName)} key={comment._id}>
+          <div className={cx("newComment-item", themeClassName)} key={comment.id}>
             <div className={cx("story")}>
-              <Link to={`/story/${comment.story.slug}/${comment.story._id}`}>
+              <Link to={`/story/${comment.story.slug}/${comment.story.id}`}>
                 <h3>{comment.story.name}</h3>
               </Link>
               <Link
-                to={`/story/${comment.story.slug}/${comment.story._id}/chap-${comment.chapter}`}
+                to={`/story/${comment.story.slug}/${comment.story.id}/chap-${comment.atChapter}`}
               >
-                {comment.atChapter ? "Chapter " + comment.atChapter : ""}
+                {"Chapter " + comment.atChapter}
               </Link>
             </div>
             <div className={cx("comment")}>
@@ -60,7 +55,7 @@ function NewComment() {
                   <h3 className={cx("name")}>{comment.user.name}</h3>
                   <span className={cx("time")}>
                     <FontAwesomeIcon icon={faClockFour} />
-                    <span>{calculateTime(comment.createdAt)}</span>
+                    <span>{comment.createdAt}</span>
                   </span>
                 </div>
                 <p className={cx("text")}>{comment.content}</p>

@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import useTheme from '../../../customHook/useTheme';
 
+import PrimaryHeading from '../PrimaryHeading/PrimaryHeading';
+
 import styles from "./ListHeading.module.scss";
-import PrimaryHeading from '../PrimaryHeading';
 
 const cx = classNames.bind(styles);
 

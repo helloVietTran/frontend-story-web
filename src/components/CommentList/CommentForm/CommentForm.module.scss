@@ -1,0 +1,39 @@
+.comment-form {
+  font-size: 1.4rem;
+  background-color: transparent;
+  color: #333;
+  
+}
+
+.comment-input {
+ 
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; // Font chữ hiện đại
+    font-size: 16px;
+    color: #333; // Màu chữ
+    border: 1px solid #ccc; // Viền nhẹ
+    border-radius: 8px; // Bo góc
+    outline: none;
+    
+    resize: vertical; // Cho phép kéo thả chiều cao
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      border-color: #4a90e2; // Viền khi focus
+      box-shadow: 0 0 8px rgba(74, 144, 226, 0.4); // Hiệu ứng đổ bóng nhẹ
+    }
+
+    &::placeholder {
+      color: #aaa; // Màu cho placeholder
+      font-style: italic;
+    }
+  }
+}
+
+.distance{
+  padding-left: 55px;
+  margin-top: 12px;
+}

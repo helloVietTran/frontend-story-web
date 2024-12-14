@@ -1,6 +1,6 @@
-import './GlobalStyles.scss'
-import './icon.css'
+import './GlobalStyles.scss';
+import './icon.css';
 function GlobalStyles({ children }){
     return children;
 }
-export default GlobalStyles
+export default GlobalStyles;

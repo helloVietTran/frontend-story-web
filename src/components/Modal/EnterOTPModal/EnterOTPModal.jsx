@@ -4,9 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import OTPInput from "react-otp-input";
 
+import Countdown from "@/components/Countdown/Countdown";
 import { authApi } from "@/config/api";
 import styles from "./EnterOTPModal.module.scss";
-import Countdown from "@/components/Countdown";
 
 const cx = classNames.bind(styles);
 

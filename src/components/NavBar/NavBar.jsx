@@ -6,9 +6,11 @@ import { faCaretDown, faHome, faSort } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 import styles from "./NavBar.module.scss";
-import useTheme from '../../customHook/useTheme';
-import { Container } from "../Layout";
-import { SortMenu, GenreMenu } from "../Menu";
+import Container from "../Layout/Container/Container";
+import SortMenu from "../Menu/SortMenu/SortMenu";
+import GenreMenu from "../Menu/GenreMenu/GenreMenu";
+
+import useTheme from '@/customHook/useTheme';
 
 const cx = classNames.bind(styles);
 function NavBar({isPreventFixed}) {

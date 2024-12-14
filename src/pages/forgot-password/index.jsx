@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
-import { NavBarModal } from "../../components/Modal";
+import NavBarModal  from "@/components/Modal/NavBarModal/NavBarModal";
+import Head from "@/components/Head/Head";
+import NavBar from "@/components/NavBar/NavBar";
+import Footer from "@/components/Footer/Footer";
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import Container from "@/components/Layout/Container/Container";
+import Grid from "@/components/Layout/Grid/Grid";
+import Row from "@/components/Layout/Row/Row";
+import Col from "@/components/Layout/Col/Col";
+
 import { authApi } from "../../config/api";
-import Head from "../../components/Head";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
-import BreadCumb from "../../components/BreadCumb";
-import { Container, Grid, Row, Col } from "../../components/Layout";
 
 function ForgotPassword() {
   const isOpen = useSelector((state) => state.navbar.isOpen);

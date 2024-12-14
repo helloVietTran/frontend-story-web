@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { NavBarModal } from "../../components/Modal";
-import { authApi } from "../../config/api";
-import Head from "../../components/Head";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
-import BreadCumb from "../../components/BreadCumb";
-import { Container } from "../../components/Layout";
+import NavBarModal  from "@/components/Modal/NavBarModal/NavBarModal";
+import Head from "@/components/Head/Head";
+import NavBar from "@/components/NavBar/NavBar";
+import Footer from "@/components/Footer/Footer";
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import Container from "@/components/Layout/Container/Container";
+
+import { authApi } from "@/config/api";
 
 function ResetPassword() {
   const navigate = useNavigate();

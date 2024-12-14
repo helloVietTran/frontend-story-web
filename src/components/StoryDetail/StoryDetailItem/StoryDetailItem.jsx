@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Row from "@/components/Layout/Row/Row";
+import Col from "@/components/Layout/Col/Col";
+
 import styles from "./StoryDetailItem.module.scss";
-import useTheme from '../../../customHook/useTheme';
-import {Row, Col} from "../../Layout";
+import useTheme from '@/customHook/useTheme';
 
 const cx = classNames.bind(styles);
 

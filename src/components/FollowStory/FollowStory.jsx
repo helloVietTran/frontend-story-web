@@ -3,51 +3,39 @@ import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { useQuery } from "@tanstack/react-query";
 
 import styles from "./FollowStory.module.scss";
-import TopStory from "../TopStory";
-import StoryCard from "../StoryCard";
-import BreadCumb from "../BreadCumb";
+import TopStory from "../TopStory/TopStory";
+import StoryCard from "../StoryCard/StoryCard";
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import TinyNav from "../NavTab/TinyNav/TinyNav";
+import PrimaryHeading from "../Heading/PrimaryHeading/PrimaryHeading";
+import DefaultLayout from "../Layout/DefaultLayout/DefaultLayout";
+import Container from "../Layout/Container/Container";
+import Grid from "../Layout/Grid/Grid";
+import Row from "../Layout/Row/Row";
+import Col from "../Layout/Col/Col";
+
 import useTheme from "@/customHook/useTheme";
-import { TinyNav } from "../NavTab";
-import { PrimaryHeading } from "../Heading";
-import { storyApi} from "@/config/api";
-import { DefaultLayout, Container, Grid, Row, Col } from "../Layout";
+import { getMyFollowedStories } from "@/api/storyApi";
 
 const cx = classNames.bind(styles);
 
 function FollowStory() {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const themeClassName = useTheme(cx);
 
-  const [followedStoryData, setFollowedStoryData] = useState([]);
-  const [markedAsReadStory, setMarkedAsReadStory] = useState([]);
   const [activeElement, setActiveElement] = useState("option 1");
+
   // call api
-  useEffect(() => {
-    const fetchFollowedStories = async () => {
-      try {
-        if (activeElement === "option 1") {
-          const res = await storyApi.getFollowedStories();
-          setFollowedStoryData(res.data.follow);
-          setMarkedAsReadStory(res.data.markAsRead);
-        } else {
-          const res = await storyApi.getUnReadStories();
-          setMarkedAsReadStory(res.data.markAsRead);
-          setFollowedStoryData(
-            res.data.data.filter(
-              (story) => !markedAsReadStory.includes(story._id)
-            )
-          );
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const { data: followedData } = useQuery({
+    queryKey: ["followedStories"],
+    queryFn: getMyFollowedStories,
+    staleTime: 5 * 60 * 1000,
+  });
 
-    fetchFollowedStories();
-  }, [activeElement, isLoggedIn]);
-
+  console.log(followedData);
   return (
     <DefaultLayout>
       <Container shouldApplyPadding isBackgroundVisible>
@@ -69,7 +57,7 @@ function FollowStory() {
                     activeElement={activeElement}
                   />
                 </div>
-                {!isLoggedIn ? (
+                {!isAuthenticated ? (
                   <>
                     <div className={cx("not-log-in", themeClassName)}>
                       <p>
@@ -88,14 +76,13 @@ function FollowStory() {
                   </>
                 ) : (
                   <Row>
-                    {followedStoryData &&
-                      followedStoryData.map((item) => {
+                    {followedData &&
+                      followedData.map((item) => {
                         return (
-                          <Col sizeMd={3} sizeSm={4} sizeXs={6} key={item._id}>
+                          <Col sizeMd={3} sizeSm={4} sizeXs={6} key={item.id}>
                             <StoryCard
-                              item={item}
-                              followAction={true}
-                              markedAsReadStory={markedAsReadStory}
+                              data={item.story}
+                            
                             />
                           </Col>
                         );

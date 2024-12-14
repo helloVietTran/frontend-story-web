@@ -1,29 +1,26 @@
-import {  useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
+import { useQuery } from "@tanstack/react-query";
+
+import ListFrame from "@/components/List/ListFrame/ListFrame";
+import PrimaryListItem from "@/components/List/PrimaryListItem/PrimaryListItem";
+import TextRank from "@/components/TextRank/TextRank";
 
 import styles from "./TopStory.module.scss";
-import useTheme from "../../customHook/useTheme";
-import { storyApi } from "../../config/api";
-import { ListFrame, PrimaryListItem, TextRank } from "../List";
+import useTheme from "@/customHook/useTheme";
+import createQueryFn from "@/utils/createQueryFn";
+import { getTopStories } from "@/api/storyApi";
 
 const cx = classNames.bind(styles);
 function TopStory() {
   const themeClassName = useTheme(cx);
-  const [topStoryData, setTopStoryData] = useState(null);
-
-  useEffect(() => {
-    const fetchTopStory = async () => {
-      try {
-        const res = await storyApi.getTopStory();
-        setTopStoryData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchTopStory();
-  }, []);
+  const {data} =  useQuery({
+    queryKey: ["topStories"],
+    queryFn: createQueryFn(getTopStories),
+    onError: (error) => {
+      console.error("Error fetching stories:", error);
+    },
+  });
   
   return (      
     <ListFrame>
@@ -34,12 +31,12 @@ function TopStory() {
         <Link to="/">Top tuần</Link>
         <Link to="/">Top ngày</Link>
       </div>
-      {topStoryData &&
-        topStoryData.map((story, index) => {
+      {data &&
+        data.map((story, index) => {
           return (
             <div
               className={cx("topStory-item")}
-              key={story._id}
+              key={story.id}
             >
               <TextRank 
                 index={index}

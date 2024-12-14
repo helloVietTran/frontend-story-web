@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { NavBarModal } from "../../components/Modal";
-import NavBar from "../../components/NavBar";
-import Head from "../../components/Head";
-import Footer from "../../components/Footer";
-import ChapterDetail from "../../components/ChapterDetail";
+import  NavBarModal from "@/components/Modal/NavBarModal/NavBarModal";
+import NavBar from "@/components/NavBar/NavBar";
+import Head from "@/components/Head/Head";
+import Footer from "@/components/Footer/Footer";
+import ChapterDetail from "@/components/ChapterDetail/ChapterDetail";
 
 function Chapter() {
   useEffect(() => {

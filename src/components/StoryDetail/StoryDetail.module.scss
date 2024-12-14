@@ -56,10 +56,14 @@
   p {
     position: relative;
     font-size: 1.4rem;
-    overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Số dòng hiển thị tối đa */
+    -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+  }
+  p.see-more{
+    -webkit-line-clamp: unset; 
   }
   a {
     font-size: 1.4rem;

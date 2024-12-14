@@ -4,14 +4,20 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import styles from "./ReadHistory.module.scss";
-import TopStory from "../TopStory";
-import BreadCumb from "../BreadCumb";
+import TopStory from "../TopStory/TopStory";
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
 import HistoryCard from "./HistoryCard/HistoryCard";
-import {TinyNav} from "../NavTab";
+import TinyNav from "../NavTab/TinyNav/TinyNav";
+import PrimaryHeading from "../Heading/PrimaryHeading/PrimaryHeading";
+import DefaultLayout from "../Layout/DefaultLayout/DefaultLayout";
+import Container from "../Layout/Container/Container";
+import Grid from "../Layout/Grid/Grid";
+import Row from "../Layout/Row/Row";
+import Col from "../Layout/Col/Col";
+
+
+import styles from "./ReadHistory.module.scss";
 import { readingStoryApi } from "../../config/api";
-import { PrimaryHeading } from "../Heading";
-import { DefaultLayout, Container, Grid, Row, Col } from "../Layout";
 
 const cx = classNames.bind(styles);
 function ReadHistory() {

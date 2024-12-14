@@ -5,7 +5,7 @@ import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import useTheme from "../../customHook/useTheme";
+import useTheme from "@/customHook/useTheme";
 import styles from "./BreadCumb.module.scss";
 import pathMappings from "./pathMappings";
 
@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 function BreadCumb({ comicName }) {
   const location = useLocation();
   const themeClassName = useTheme(cx);
-  const { storyName, storyID, chap, userID } = useParams();
+  const { storyName, storyID, chap, userID, chapterID } = useParams();
 
   const pathname = location.pathname.split("/").filter((x) => x);
   
@@ -39,6 +39,8 @@ function BreadCumb({ comicName }) {
     } 
     else if (path === chap) {
       displayName = chap.replace(/chap-(\d+)/i, "Chapter $1");
+    }else if (path === chapterID){
+      displayName = null;
     }
 
     return (

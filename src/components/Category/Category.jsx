@@ -1,40 +1,39 @@
 import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
-import { v4 as uuidv4 } from "uuid";
 
 import styles from "./Category.module.scss";
-import { options } from "../../config/filter";
-import useTheme from "../../customHook/useTheme";
+import useTheme from "@/customHook/useTheme";
+import { options } from "@/config/filter";
 
 const cx = classNames.bind(styles);
 
 function Category({ setGenreParam }) {
   const location = useLocation();
   const themeClassName = useTheme(cx);
+
   useEffect(() => {
-    if (location.pathname === "/find-story") {
-      setGenreParam("Tất cả");
-    } else {
-      options.forEach((option) => {
-        if (location.pathname.includes(option.path.split("/")[2])) {
-          setGenreParam(option.name);
-        }
+    if (location.pathname === "/find-story") setGenreParam("Tất cả");
+    else
+      options.forEach((genre) => {
+        if (location.pathname.includes(genre.path.split("/")[2]))
+          setGenreParam(genre.name);
       });
-    }
-  }, [location, setGenreParam]);
+  }, [location, setGenreParam, options]);
 
   const checkLinkActive = ({ isActive }) => (isActive ? cx("active") : null);
+
   return (
     <>
       <div className={`${cx("category")} ${themeClassName}`}>
-        <h2 >Thể loại</h2>
+        <h2>Thể loại</h2>
         <ul className={cx("category-list")}>
-          {options.map((item) => {
+          {options.map((genre) => {
             return (
-              <li key={uuidv4()}>
-                <NavLink to={item.path} className={checkLinkActive}>
-                  {item.name}
+              <li key={genre.id}>
+                <NavLink to={genre.path} className={checkLinkActive}>
+                  {genre.name}
                 </NavLink>
               </li>
             );

@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
-import { reportApi } from '@/config/api';
 import styles from "./ReportModal.module.scss";
-import { PrimaryButton } from '@/components/Button';
+import  PrimaryButton from "@/components/Button/PrimaryButton/PrimaryButton";
+import { reportChapterError } from '@/api/reportApi';
  
 const cx = classNames.bind(styles);
 
@@ -13,6 +15,33 @@ const ReportModal = ({
   storyName,
   atChapter,
 }) => {
+
+  const reportMutate = useMutation({
+    mutationFn: reportChapterError,
+    onSuccess: (data) => {
+      toast.success("Report thành công", {
+        style:{
+          fontSize: '14px'
+        },
+        duration: 3000,
+        position: "top-center",
+      });
+      
+    },
+    onError: (error) => {
+      toast.error("Vui lòng điền đầy đủ thông tin", {
+        style:{
+          fontSize: '14px'
+        },
+        duration: 3000,
+        position: "top-center",
+      });
+     
+    },
+    onSettled: () => {
+      onClick(false);
+    }
+  });
 
   const [report, setReport] = useState({
     type: "",
@@ -23,17 +52,11 @@ const ReportModal = ({
 
   const handleChange = (e)=>{
     const {name, value} = e.target;
-    setReport({...report, [name]: value});// [name] để hiểu là tham số động, chứ không phải trường name
+    setReport({...report, [name]: value});// [name] là tham số động
   }
 
-  const handleSubmit = async()=>{
-    try {
-      await reportApi.reportErrorChapter(report);
-      onClick(false);
-    } catch (error) {
-      console.log(error);
-      onClick(false);
-    }
+  const handleSubmit = async() => {
+    reportMutate.mutate(report);
   }
 
   return (
@@ -46,12 +69,12 @@ const ReportModal = ({
           name='type'
           onChange={handleChange}
         > 
-          <option defaultValue={'-1'}>--Chọn loại lỗi--</option>
-          <option value="0">Ảnh lỗi, không thấy ảnh</option>
-          <option value="1">Chapter bị trùng</option>
-          <option value="2">Chapter chưa dịch</option>
-          <option value="3">Up sai truyện</option>
-          <option value="4">Lỗi khác</option>
+          <option defaultValue=''>--Chọn loại lỗi--</option>
+          <option value="Ảnh lỗi, không thấy ảnh">Ảnh lỗi, không thấy ảnh</option>
+          <option value="Chapter bị trùng">Chapter bị trùng</option>
+          <option value="Chapter chưa dịch">Chapter chưa dịch</option>
+          <option value="Up sai truyện">Up sai truyện</option>
+          <option value="Lỗi khác">Lỗi khác</option>
         </select>
         <p className='mt15 mb15'>
           Mô tả chính xác lỗi sẽ được thưởng 100 linh thạch, mô tả sai sẽ bị trừ 100 linh thạch
@@ -87,7 +110,7 @@ const ReportModal = ({
 ReportModal.propTypes = {
   onClick: PropTypes.func.isRequired,
   storyName: PropTypes.string.isRequired,
-  atChapter: PropTypes.string.isRequired,
+  atChapter: PropTypes.number.isRequired,
 }
 
 export default ReportModal

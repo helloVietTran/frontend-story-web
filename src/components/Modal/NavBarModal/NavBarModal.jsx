@@ -10,11 +10,12 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
+import SortMenu from "@/components/Menu/SortMenu/SortMenu";
+import GenreMenu from "@/components/Menu/GenreMenu/GenreMenu";
+import UserMenu from "@/components/Menu/UserMenu/UserMenu";
+
 import styles from "./NavBarModal.module.scss";
-import { closeNavbar } from "@/actions/navbar";
-//import { logoutAction } from "@/actions/auth";
-import { GenreMenu, SortMenu } from "@/components/Menu";
-import { UserMenu } from "@/components/Menu";
+import { closeNavbar } from "@/redux/navbarSlice";
 
 const cx = classNames.bind(styles);
 

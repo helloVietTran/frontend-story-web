@@ -9,13 +9,16 @@ import classNames from "classnames/bind";
 import { faEye, faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 
-import { Grid, Row, Col } from "../Layout";
-import { FilterButton } from "../Button";
-import { GenreSelect } from "../Select";
-import { options } from "../../config/filter";
-import useTheme from "../../customHook/useTheme";
+import Grid from "../Layout/Grid/Grid";
+import Row from "@/components/Layout/Row/Row";
+import Col from "@/components/Layout/Col/Col";
+import FilterButton  from "@/components/Button/FilterButton/FilterButton";
+import GenreSelect from "../GenreSelect/GenreSelect";
+import StoryCard from "../StoryCard/StoryCard";
+
+import { options } from "@/config/filter";
+import useTheme from "@/customHook/useTheme";
 import styles from "./Sort.module.scss";
-import StoryCard from "../StoryCard";
 
 const cx = classNames.bind(styles);
 function Sort({ searchByGenresData }) {

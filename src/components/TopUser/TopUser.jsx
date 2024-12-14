@@ -1,31 +1,28 @@
-import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
+import { useQuery } from "@tanstack/react-query";
  
-import { PrimaryHeading } from "../Heading"
-import { ListFrame, TextRank } from "../List";
-import { userApi } from "../../config/api";
-import { LevelBox } from "../Box"
+import PrimaryHeading  from "@/components/Heading/PrimaryHeading/PrimaryHeading"
+import ListFrame from "@/components/List/ListFrame/ListFrame";
+import TextRank from "@/components/TextRank/TextRank";
+import LevelBox from "@/components/Box/LevelBox/LevelBox";
+
 import useTheme from "../../customHook/useTheme";
 import styles from "./TopUser.module.scss";
+import { getTopUsers } from "@/api/userApi";
+import createQueryFn from "@/utils/createQueryFn";
 
 const cx = classNames.bind(styles);
 function TopUser() {
-  const [topUserData, setTopUserData] = useState([]);
   const themeClassName = useTheme(cx);
 
-  useEffect(() => {
-    const fetchTopUser = async () => {
-      try {
-        const res = await userApi.getTopUser();
-        setTopUserData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchTopUser();
-  }, []);
-
+  const {data} =  useQuery({
+    queryKey: ["topUsers"],
+    queryFn: createQueryFn(getTopUsers),
+    onError: (error) => {
+      console.error("Error fetching top stories:", error);
+    },
+    staleTime: 5*1000,
+  });
   return (
     <ListFrame>
       <PrimaryHeading 
@@ -33,7 +30,7 @@ function TopUser() {
         size={1.6}
         bottom={10}
       />
-      {topUserData.map((user, index) => {
+      {data && data.map((user, index) => {
         return (
           <div className={cx("topUser-item", themeClassName)} key={user._id}>
 
@@ -51,11 +48,11 @@ function TopUser() {
                 <h3>{user.name}</h3>
 
                 <LevelBox 
-                  level={user.level}
-                  process={user.process}
+                  level={user.level.level}
+                  process={user.level.proces*100}
                 />
                 <LevelBox 
-                  point={user.point}
+                  point={user.level.rankName}
                 />
               </div>
               </div>

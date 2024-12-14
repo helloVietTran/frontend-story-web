@@ -12,7 +12,9 @@ import {
 import classNames from "classnames/bind";
 
 import styles from "./SortMenu.module.scss";
-import { Grid, Row, Col } from "../../Layout";
+import Grid from "@/components/Layout/Grid/Grid";
+import Row from "@/components/Layout/Row/Row";
+import Col from "@/components/Layout/Col/Col";
 
 const cx = classNames.bind(styles);
 

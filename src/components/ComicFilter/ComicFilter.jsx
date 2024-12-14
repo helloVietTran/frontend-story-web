@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleUp, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import classNames from "classnames/bind";
 
-import { storyApi } from "../../config/api";
-import { options } from "../../config/filter";
-import { Grid, Row, Col } from "../Layout";
-import StoryCard from "../StoryCard";
+import Grid from "../Layout/Grid/Grid";
+import Row from "../Layout/Row/Row";
+import Col from "../Layout/Col/Col";
+import StoryCard from "../StoryCard/StoryCard";
+
 import styles from "./ComicFilter.module.scss";
-import useTheme from "../../customHook/useTheme";
+import useTheme from "@/customHook/useTheme";
+import { storyApi } from "@/config/api";
+import { options } from "@/config/filter";
 
 
 const cx = classNames.bind(styles);
+
 function ComicFilter() {
   const [isOpen, setIsOpen] = useState(true);
   const [sortData, setSortData] = useState([]);
@@ -25,14 +29,15 @@ function ComicFilter() {
 
   const navigate = useNavigate();
   const themeClassName = useTheme(cx);
-
   const [searchParams] = useSearchParams();
+
   const genreParam = searchParams.get("genre") || "tất cả";
   const notgenreParam = searchParams.get("notgenre") || "";
   const sortByParam = searchParams.get("sortBy") || "-1";
   const genderParam = searchParams.get("gender") || "0";
   const statusParam = searchParams.get("status") || "-1";
   const minchapterParam = searchParams.get("minchapter") || "0";
+
   // call api when parameter changes
   useEffect(() => {
     const fetchData = async () => {

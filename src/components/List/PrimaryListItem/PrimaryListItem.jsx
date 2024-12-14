@@ -21,16 +21,16 @@ const PrimaryListItem = ({
   const themeClassName = useTheme(cx);
   return (
     <div className={cx("primary-list-item", themeClassName)}>
-      <Link to={`/story/${data.slug}/${data._id}`}>
+      <Link to={`/story/${data.slug}/${data.id}`}>
         <img alt="list" className={cx("image")} src={data.imgSrc} />
       </Link>
       <div className={cx("body")}>
-        <Link to={`/story/${data.slug}/${data._id}`} className={cx("name")}>
+        <Link to={`/story/${data.slug}/${data.id}`} className={cx("name")}>
           <h3>{data.name}</h3>
         </Link>
         <div className={cx("chapter")}>
           <Link
-            to={`/story/${data.slug}/${data._id}/chap-${data.newestChapter}`}
+            to={`/story/${data.slug}/${data.id}/chap-${data.newestChapter}`}
             className={cx("chap")}
           >
             <span>Chap {data.newestChapter}</span>
@@ -41,7 +41,7 @@ const PrimaryListItem = ({
           {hasDeleteBtn && (
             <Link
               className={cx("delete-btn")}
-              onClick={handleDeleteReadingHistory(data._id)}
+              onClick={handleDeleteReadingHistory(data.id)}
             >
               <FontAwesomeIcon icon={faTimes} />
               Xóa

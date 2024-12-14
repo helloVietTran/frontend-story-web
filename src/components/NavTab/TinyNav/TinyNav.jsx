@@ -7,7 +7,7 @@ import styles from "./TinyNav.module.scss";
 import useTheme from '@/customHook/useTheme';
 const cx = classNames.bind(styles);
 
-const Nav = ({
+const TinyNav = ({
     firstLabel, secondaryLabel, onClick, activeElement
 }) => {
 const themeClassName = useTheme(cx);
@@ -32,11 +32,11 @@ const themeClassName = useTheme(cx);
     </ul>
   )
 }
-Nav.propTypes = {
+TinyNav.propTypes = {
     firstLabel: PropTypes.string,
     secondaryLabel: PropTypes.string,
     onClick: PropTypes.func,
     activeElement: PropTypes.string
 }
 
-export default Nav
+export default TinyNav

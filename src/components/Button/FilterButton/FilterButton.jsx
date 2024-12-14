@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 import { NavLink } from "react-router-dom";
 
 import styles from "./FilterButton.module.scss";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const cx = classNames.bind(styles);
 
@@ -15,7 +14,7 @@ const FilterButton = ({
   name,
   label,
   orangeActive,
- // icon,
+  icon,
 }) => {
   return (
     <button
@@ -26,7 +25,7 @@ const FilterButton = ({
       <NavLink
         className={`
             ${
-              activeNavLink && activeNavLink === name ? cx("active") : undefined
+              activeNavLink && activeNavLink === name ? cx("active") : ""
             }
             ${orangeActive && cx("orange-active")}
            `}
@@ -36,7 +35,7 @@ const FilterButton = ({
         }}
       >
         {icon && <FontAwesomeIcon icon={icon} />}
-        {label}  
+        {label}
       </NavLink>
     </button>
   );
@@ -49,7 +48,7 @@ FilterButton.propTypes = {
   activeNavLink: PropTypes.string,
   label: PropTypes.string.isRequired,
   orangeActive: PropTypes.bool,
- // icon: PropTypes.object,
+  icon: PropTypes.object,
 };
 
 export default FilterButton;

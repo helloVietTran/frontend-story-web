@@ -18,10 +18,10 @@ const Input = ({
   register,
   onChange,
 }) => {
-  const [isHidePassword, setIsHidePassWord] = useState(true);
+  const [isHidePassword, setIsHidePassWord] = useState(false);
   return (
     <div
-      className={cx("form-input")}
+      className={cx("input-container")}
       style={{ position: type === "password" ? "relative" : "unset" }}
     >
       <label htmlFor={id}>{label}</label>
@@ -30,14 +30,16 @@ const Input = ({
         placeholder={placeholder}
         type={isHidePassword && type === "password" ? "password" : "text"}
         {...register(id, config)}
-        className={errors.id ? cx("invalid") : cx("validate")}
+        className={errors[id] ? cx("invalid") : ""}
         onChange={onChange}
       />
-      {errors.id && <span className="error">{errors.id.message}</span>}
+      {errors[id] && <span className={cx("error")}>{errors[id].message}</span>}
+
       {type === "password" && (
         <FontAwesomeIcon
           icon={isHidePassword ? faEye : faEyeSlash}
           onClick={() => setIsHidePassWord(!isHidePassword)}
+          className={errors[id] ? cx("input-icon") : cx("input-icon","translateY")}
         />
       )}
     </div>

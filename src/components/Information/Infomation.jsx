@@ -4,11 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
-import BreadCumb from "../BreadCumb";
-import InfoSideBar from "./InfoSideBar";
-import UserSide from "./UserSide";
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import InfoSideBar from "./InfoSideBar/InfoSideBar";
+import UserSide from "./UserOptionSide/UserOptionSide";
+import DefaultLayout from "../Layout/DefaultLayout/DefaultLayout";
+import Container from "../Layout/Container/Container";
+import Grid from "../Layout/Grid/Grid";
+import Col from "../Layout/Col/Col";
+import Row from "../Layout/Row/Row";
+
 import styles from "./Information.module.scss";
-import { DefaultLayout, Container, Grid, Row, Col } from "../Layout";
 
 const cx = classNames.bind(styles);
 function Information() {

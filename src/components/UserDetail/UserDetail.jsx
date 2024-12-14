@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import  formatDate  from "@/utils/formatDate";
+import Container from "@/components/Layout/Container/Container";
+
 import styles from "./UserDetail.module.scss";
-import useTheme from "../../customHook/useTheme";
-import BreadCumb from "../BreadCumb";
-import calculateTime from "../../utils/calculateTime";
-import { userApi } from "../../config/api";
-import  formatDate  from "../../utils/formatDate";
-import { Container } from "../Layout";
+import useTheme from "@/customHook/useTheme";
+import calculateTime from "@/utils/calculateTime";
+import { userApi } from "@/config/api";
 
 const cx = classNames.bind(styles);
 

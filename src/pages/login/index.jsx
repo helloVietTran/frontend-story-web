@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { NavBarModal } from "../../components/Modal";
-import Head from "../../components/Head";
-import NavBar from "../../components/NavBar";
-import Login from "../../components/Login";
-import Footer from "../../components/Footer";
+import NavBarModal from "@/components/Modal/NavBarModal/NavBarModal";
+import Head from "@/components/Head/Head";
+import NavBar from "@/components/NavBar/NavBar";
+import Login from "@/components/Login/Login";
+import Footer from "@/components/Footer/Footer";
+
 function LoginPage() {
   const isOpen = useSelector((state) => state.navbar.isOpen);
 

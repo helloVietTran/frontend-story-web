@@ -2,22 +2,21 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { NavBarModal } from "../../components/Modal";
-import { options } from "../../config/filter";
-import {
-  DefaultLayout,
-  Container,
-  Grid,
-  Row,
-  Col,
-} from "../../components/Layout";
-import { storyApi } from "../../config/api";
-import Head from "../../components/Head";
-import NavBar from "../../components/NavBar";
-import Sort from "../../components/Sort/Sort";
-import Category from "../../components/Category";
-import Footer from "../../components/Footer/Footer";
-import BreadCumb from "../../components/BreadCumb";
+import NavBarModal from "@/components/Modal/NavBarModal/NavBarModal";
+import Head from "@/components/Head/Head";
+import NavBar from "@/components/NavBar/NavBar";
+import Sort from "@/components/Sort/Sort";
+import Category from "@/components/Category/Category";
+import Footer from "@/components/Footer/Footer";
+import BreadCumb from "@/components/BreadCumb/BreadCumb";
+import DefaultLayout from "@/components/Layout/DefaultLayout/DefaultLayout";
+import Container from "@/components/Layout/Container/Container";
+import Grid from "@/components/Layout/Grid/Grid";
+import Row from "@/components/Layout/Row/Row";
+import Col from "@/components/Layout/Col/Col";
+
+import { storyApi } from "@/config/api";
+import { options } from "@/config/filter";
 
 function FindStory() {
   const isOpen = useSelector((state) => state.navbar.isOpen);
@@ -27,6 +26,7 @@ function FindStory() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   //tách lấy query
   const queryParams = new URLSearchParams(location.search);
   const status = queryParams.get("status");
@@ -36,11 +36,11 @@ function FindStory() {
     const checkValidUrl = options.filter((option) =>
       option.path.includes(location.pathname)
     );
-    if (checkValidUrl.length === 0) {
-      navigate("/404");
-    }
+
+    if (checkValidUrl.length === 0) navigate("/404");
   }, [location.pathname, navigate]);
 
+  // cuộn về đầu trang
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

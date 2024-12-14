@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { NavBarModal } from "../../components/Modal";
-import NavBar from "../../components/NavBar";
-import Head from "../../components/Head";
-import Footer from "../../components/Footer";
-import StoryDetail from "../../components/StoryDetail";
-import { DefaultLayout, Container } from "../../components/Layout";
+import NavBarModal from "@/components/Modal/NavBarModal/NavBarModal";
+import NavBar from "@/components/NavBar/NavBar";
+import Head from "@/components/Head/Head";
+import Footer from "@/components/Footer/Footer";
+import StoryDetail from "@/components/StoryDetail/StoryDetail";
+import DefaultLayout from "@/components/Layout/DefaultLayout/DefaultLayout";
+import Container  from "@/components/Layout/Container/Container";
 
 function Story() {
   const isOpen = useSelector((state) => state.navbar.isOpen);

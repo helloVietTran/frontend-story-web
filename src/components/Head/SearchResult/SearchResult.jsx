@@ -16,14 +16,14 @@ function SearchResult({ searchData }) {
         {searchData.map((searchValue) => {
           return (
             <li key={searchValue._id} onMouseDown={handleMouseDown}>
-              <Link to={`/story/${searchValue.slug}/${searchValue._id}`}>
+              <Link to={`/story/${searchValue.slug}/${searchValue.id}`}>
                 <img className={cx("story-logo")} src={searchValue.imgSrc} alt="search"/>
                 <div className={cx("info")}>
                   <h3>{searchValue.name}</h3>
                   <i className={cx("last-chapter")}>
                     Chapter {searchValue.newestChapter}
                   </i>
-                  {searchValue.author !== "" ? <b>{searchValue.author}</b> : null}
+                  {searchValue.author ? <b>{searchValue.author}</b> : null}
                   <p>{searchValue.genres.join(", ")}</p>
                 </div>
               </Link>

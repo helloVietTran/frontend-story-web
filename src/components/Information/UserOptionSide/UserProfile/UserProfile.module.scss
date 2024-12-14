@@ -1,0 +1,24 @@
+.type-note{
+    color: #ff9601;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+.dark{
+    color: white;
+}
+.file-uploader{
+    span{
+        display: block;
+        margin-bottom: 4px;
+    }
+    .preview{
+        max-width: 100%;
+    }
+    button{
+        margin-bottom: 4px;
+    }
+    img{
+        max-width: 50%;
+        object-fit: cover;
+    }
+}
