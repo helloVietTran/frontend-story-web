@@ -40,8 +40,8 @@ const StoryInfo = ({ story, isAuthenticated }) => {
 
   const [followerCount, setFollowerCount] = useState(0);
 
-  // websocket
-  useEffect(() => {
+  // real time
+  /**  useEffect(() => {
     const channels = [
       `/topic/followers/${storyID}`, //kênh nhận follow
     ];
@@ -53,7 +53,7 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     });
 
     return () => client.deactivate();
-  }, [storyID]);
+  }, [storyID]); */
 
   //***********define query *************
   const { data: myFollowedStory, isSuccess } = useQuery({
@@ -161,19 +161,19 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     });
   };
 
-  const genreContent = "";
-   /* (
-    <div>
-      {story.genres.map((item, index) => {
-        return (
-          <span key={item}>
-            <Link>{item}</Link>
-            {index !== story.genres.length - 1 && <span> - </span>}
-          </span>
-        );
-      })}
-    </div>
-  ); */
+  console.log(story)
+  const genreContent = (
+    <>
+      {story.genres && story.genres.map((item, index) => {
+          return (
+            <span key={item}>
+              <Link>{item}</Link>
+              {index !== story.genres.length - 1 && <span> - </span>}
+            </span>
+          );
+        })}
+    </>
+  );
 
   return (
     <div className={cx("story-info", themeClassName)}>

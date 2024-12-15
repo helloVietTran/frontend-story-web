@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import classNames from "classnames/bind";
 import {
@@ -20,9 +20,11 @@ import createQueryFn from "@/utils/createQueryFn";
 import {
   getChapterByStoryIdAndChap,
   getChapterResource,
+  increaseView,
 } from "@/api/chapterApi";
 import { getStoryById } from "@/api/storyApi";
 import { getCommentsByChapterId } from "@/api/commentApi";
+import addReadingHistoryOnLocal from "@/utils/addReadingHistoryOnLocal";
 
 const cx = classNames.bind(styles);
 
@@ -59,12 +61,48 @@ function ChapterDetail() {
     queryFn: createQueryFn(getChapterResource),
   });
 
-  // get Comment
+  // get comment
   const { data: comments } = useQuery({
-    enabled: !! chapter,
-    queryKey: ["storyComments", chapter.id, page],
+    enabled: !!chapter?.id,
+    queryKey: ["storyComments", chapter?.id, page],
     queryFn: createQueryFn(getCommentsByChapterId),
   });
+  // increase view mutation
+  const increaseViewMutation = useMutation({
+    mutationFn: increaseView,
+    onSuccess: () => {
+      console.log("increase view count successfull");
+    },
+    onError: () => {
+      console.log("Increase view failed");
+    },
+  });
+  // khi đọc đủ 10 giây mới tăng view
+  useEffect(() => {
+    // lưu lịch sử đọc truyện trên storage
+
+    const delay = setTimeout(() => {
+      addReadingHistoryOnLocal(
+        {
+          id: story.id,
+          slug: story.slug,
+          name: story.name,
+          imgSrc: story.imgSrc,
+          updatedAt: story.updatedAt,
+          newestChapter: story.newestChapter,
+          viewCount: story.viewCount,
+        },
+        +chap.slice(5)
+      );
+
+      increaseViewMutation.mutate({
+        storyId: storyID,
+        chapterId: chapter?.id,
+      });
+    }, 10000);
+
+    return () => clearTimeout(delay);
+  }, [chap.slice(5), addReadingHistoryOnLocal, increaseViewMutation]);
 
   //********* IF URL CHANGE, IT WILL NAVIGATE TO NEW CHAPTER*/
   useEffect(() => {
@@ -72,6 +110,7 @@ function ChapterDetail() {
   }, [currentChapter, navigate, storyID, storyName]);
 
   // ******* HANDLE CHANGE CHAPTER BUTTON *******
+
   const handleNextChap = () => {
     const nextChapter = currentChapter + 1;
     if (!nextBtnRef.current.classList.contains(cx("disabled"))) {

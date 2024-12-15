@@ -10,8 +10,6 @@ import Footer from "@/components/Footer/Footer";
 import BreadCumb from "@/components/BreadCumb/BreadCumb";
 import Container from "@/components/Layout/Container/Container";
 
-import { authApi } from "@/config/api";
-
 function ResetPassword() {
   const navigate = useNavigate();
   const isOpen = useSelector((state) => state.navbar.isOpen);
@@ -37,15 +35,7 @@ function ResetPassword() {
   });
 
   const handleSubmitData = async (data) => {
-    try {
-      if (ticket) {
-        await authApi.resetPassword(data, ticket);
-        alert("Mật khẩu đã được thay đổi thành công!");
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    
   };
 
   return (

@@ -11,7 +11,6 @@ import StoryCard from "../StoryCard/StoryCard";
 
 import styles from "./ComicFilter.module.scss";
 import useTheme from "@/customHook/useTheme";
-import { storyApi } from "@/config/api";
 import { options } from "@/config/filter";
 
 
@@ -39,7 +38,7 @@ function ComicFilter() {
   const minchapterParam = searchParams.get("minchapter") || "0";
 
   // call api when parameter changes
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await storyApi.queryStoriesAdvanced(
@@ -63,7 +62,7 @@ function ComicFilter() {
     genderParam,
     statusParam,
     minchapterParam,
-  ]);
+  ]); */
 
   const comicFilter = options.slice(1);
   const length = comicFilter.length;

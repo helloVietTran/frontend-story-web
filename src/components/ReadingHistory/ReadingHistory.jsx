@@ -15,41 +15,31 @@ import Grid from "../Layout/Grid/Grid";
 import Row from "../Layout/Row/Row";
 import Col from "../Layout/Col/Col";
 
-
 import styles from "./ReadHistory.module.scss";
-import { readingStoryApi } from "../../config/api";
+import getReadingHistoriesFromLocal from "@/utils/getReadingHistoryFromLocal";
+import deleteReadingHistoryFromLocal from "@/utils/deleteReadingHistoryFromLocal";
 
 const cx = classNames.bind(styles);
 function ReadHistory() {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-  const [readingHistoryData, setReadingHistoryData] = useState([]);
-  const [activeItem, setActiveItem] = useState("option 1");
+  const [readingHistoryData, setReadingHistoryData] = useState([]); // useState của api
+  const [activeLabel, setActiveLabel] = useState("option 1");
+
+  // lịch sử đọc truyện theo thiết bị
+  const [localReadingHistories, setLocalReadingHistories] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (activeItem === "option 1") {
-          const data = JSON.parse(localStorage.getItem("visited_stories"));
-          setReadingHistoryData(data);
-        } else {
-          const res = await readingStoryApi.getReadingHistory();
-          setReadingHistoryData(res.data.visited_stories);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchData();
-  }, [activeItem]);
+    setLocalReadingHistories(getReadingHistoriesFromLocal());
+  }, []);
+
+  const handleDelete = (id) => {
+    setLocalReadingHistories(deleteReadingHistoryFromLocal(id));
+  };
 
   return (
     <DefaultLayout>
-      <Container
-        shouldApplyPadding
-        isBackgroundVisible
-      >
+      <Container shouldApplyPadding isBackgroundVisible>
         <BreadCumb />
         <Grid>
           <Row>
@@ -68,29 +58,76 @@ function ReadHistory() {
                   <TinyNav
                     firstLabel="Từ thiết bị"
                     secondaryLabel="Theo tài khoản"
-                    onClick={setActiveItem}
-                    activeElement={activeItem}
+                    onClick={setActiveLabel}
+                    activeElement={activeLabel}
                   />
                 </div>
                 <div className={cx("story-list")}>
-                  {readingHistoryData ? (
+                  {activeLabel === "option 1" && (
                     <Row>
-                      {activeItem === "option 1" ? (
-                        readingHistoryData.map((item) => {
-                          return (
-                            <Col 
-                            sizeMd={3} sizeSm={4} sizeXs={6}
-                            key={item._id}
-                            >
-                              <HistoryCard
-                                item={item}
-                                activeItem={activeItem}
-                                setReadingHistoryData={setReadingHistoryData}
-                              />
-                            </Col>
-                          );
-                        })
-                      ) : isLoggedIn ? (
+                      {localReadingHistories.map((item) => {
+                        return (
+                          <Col sizeMd={3} sizeSm={4} sizeXs={6} key={item.id}>
+                            <HistoryCard data={item} />
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  )}
+                  {activeLabel === "option 2" && (
+                    <>
+                      {isAuthenticated ? (
+                        readingHistoryData.length > 0 ? (
+                          <Row>
+                            {readingHistoryData.map((item) => {
+                              return (
+                                <Col
+                                  sizeMd={3}
+                                  sizeSm={4}
+                                  sizeXs={6}
+                                  key={item.id}
+                                >
+                                  <HistoryCard data={item} />
+                                </Col>
+                              );
+                            })}
+                          </Row>
+                        ) : (
+                          <p>Bạn chưa đọc truyện nào</p>
+                        )
+                      ) : (
+                        // Nếu người dùng chưa đăng nhập
+                        <Col sizeXs={12}>
+                          <p className="pb10">
+                            Vui lòng
+                            <Link to="/login"> Đăng nhập </Link>
+                            để trải nghiệm tính năng này, truyện được hiển thị
+                            như ảnh dưới:
+                          </p>
+                          <img
+                            style={{ width: "100%" }}
+                            src="images/back-ground/lich-su-doc-truyen.jpg"
+                            alt="huong-dan"
+                          />
+                        </Col>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </Col>
+            <Col sizeLg={4} sizeXs={12}>
+              <TopStory />
+            </Col>
+          </Row>
+        </Grid>
+      </Container>
+    </DefaultLayout>
+  );
+}
+
+export default ReadHistory;
+/**isAuthenticated ? (
                         readingHistoryData.map((item) => {
                           return (
                             <Col
@@ -101,7 +138,7 @@ function ReadHistory() {
                              >
                               <HistoryCard
                                 item={item}
-                                activeItem={activeItem}
+                                activeLabel={activeLabel}
                                 setReadingHistoryData={setReadingHistoryData}
                               />
                             </Col>
@@ -125,18 +162,15 @@ function ReadHistory() {
                     </Row>
                   ) : (
                     <p>Bạn chưa đọc truyện nào</p>
-                  )}
-                </div>
-              </div>
-            </Col>
-            <Col sizeLg={4} sizeXs={12}>
-              <TopStory />
-            </Col>
-          </Row>
-        </Grid>
-      </Container>
-    </DefaultLayout>
-  );
-}
-
-export default ReadHistory;
+                  ) */
+/** : isAuthenticated ? (
+                    readingHistoryData.map((item) => {
+                      return (
+                        <Col sizeMd={3} sizeSm={4} sizeXs={6} key={item.id}>
+                          <HistoryCard data={item} />
+                        </Col>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )} */

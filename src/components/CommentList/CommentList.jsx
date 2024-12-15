@@ -25,8 +25,7 @@ function CommentList({ data }) {
       </ul>
 
       <div className={cx("comment-wrapper")}>
-        <CommentForm 
-        />
+        <CommentForm />
 
         <div className={cx("comment-list")}>
           {data.map((comment) => {
@@ -34,7 +33,7 @@ function CommentList({ data }) {
               <>
                 <CommentItem data={comment} />
                 {comment.replies &&
-                  comment.replies.map(reply => {
+                  comment.replies.map((reply) => {
                     return <CommentItem data={reply} isReply />;
                   })}
               </>

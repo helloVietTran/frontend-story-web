@@ -15,7 +15,6 @@ import Grid from "@/components/Layout/Grid/Grid";
 import Row from "@/components/Layout/Row/Row";
 import Col from "@/components/Layout/Col/Col";
 
-import { storyApi } from "@/config/api";
 import { options } from "@/config/filter";
 
 function FindStory() {
@@ -41,7 +40,7 @@ function FindStory() {
   }, [location.pathname, navigate]);
 
   // cuộn về đầu trang
-  useEffect(() => {
+ /* useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
@@ -56,7 +55,7 @@ function FindStory() {
     };
 
     fetchData();
-  }, [genreParam, status, sort]);
+  }, [genreParam, status, sort]); */
 
   return (
     <>

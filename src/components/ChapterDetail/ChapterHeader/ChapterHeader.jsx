@@ -112,7 +112,7 @@ const ChapterHeader = ({
     };
   }, []);
 
-  // ************** HANDLE CHANGE CHAPTER ******************
+  // ************** HANDLE CHANGE CHAPTER **************
   const handleKeyDown = (event) => {
     if (event.key === "ArrowRight") {
       if (!nextBtnRef.current.classList.contains(cx("disabled"))) {

@@ -9,7 +9,6 @@ import Container from "@/components/Layout/Container/Container";
 import styles from "./UserDetail.module.scss";
 import useTheme from "@/customHook/useTheme";
 import calculateTime from "@/utils/calculateTime";
-import { userApi } from "@/config/api";
 
 const cx = classNames.bind(styles);
 
@@ -17,24 +16,10 @@ function UserDetail() {
   const themeClassName = useTheme(cx);
 
   const { userID } = useParams();
-  const navigate = useNavigate(); // useNavigate để điều hướng trong một hàm
+  const navigate = useNavigate(); 
 
   const [activeItem, setActiveItem] = useState("item 1");
   const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const res = await userApi.getUserInfo(userID);
-        setUserData(res.data);
-      } catch (error) {
-        console.log(error);
-        navigate("/not-found");
-      }
-    };
-  
-    fetchUserInfo();
-  }, [userID, navigate]);
   
 
   return (

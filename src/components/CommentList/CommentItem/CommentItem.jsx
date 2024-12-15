@@ -19,7 +19,7 @@ import styles from "./CommentItem.module.scss";
 import useTheme from "@/customHook/useTheme";
 import CommentForm from "../CommentForm/CommentForm";
 import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { dislikeComment, likeComment } from "@/api/reactionApi";
 import connectWebSocket from "@/utils/connectWebsocket";
 
@@ -27,6 +27,7 @@ const cx = classNames.bind(styles);
 
 const CommentItem = ({ data: comment, isReply = false }) => {
   const themeClassName = useTheme(cx);
+ // const queryClient = useQueryClient();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [openCommentForms, setOpenCommentForms] = useState({});
   const [likeCount, setLikeCount] = useState(0);
@@ -50,7 +51,7 @@ const CommentItem = ({ data: comment, isReply = false }) => {
     fontSize: "14px",
   };
   // real time
-  useEffect(() => {
+ /** useEffect(() => {
     const channels = [
       `/topic/comments/${comment.id}/likes`,
       `/topic/comments/${comment.id}/dislikes`,
@@ -70,12 +71,13 @@ const CommentItem = ({ data: comment, isReply = false }) => {
       console.error("Lỗi WebSocket:", frame);
     };
     return () => client.deactivate();
-  }, [comment.id]);
+  }, [comment.id]); */
 
   // define mutation
   const likeMutation = useMutation({
     mutationFn: likeComment,
-    onSuccess: () => {},
+    onSuccess: () => {
+    },
     onError: () => {
       toast.error("Vui lòng thử lại sau!", {
         style,

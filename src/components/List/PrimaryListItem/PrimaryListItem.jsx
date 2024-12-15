@@ -19,6 +19,7 @@ const PrimaryListItem = ({
   handleDeleteReadingHistory,
 }) => {
   const themeClassName = useTheme(cx);
+
   return (
     <div className={cx("primary-list-item", themeClassName)}>
       <Link to={`/story/${data.slug}/${data.id}`}>
@@ -33,7 +34,12 @@ const PrimaryListItem = ({
             to={`/story/${data.slug}/${data.id}/chap-${data.newestChapter}`}
             className={cx("chap")}
           >
-            <span>Chap {data.newestChapter}</span>
+            <span className={hasDeleteBtn ? cx("read") : ""}>
+              Chap{" "}
+              {!hasDeleteBtn
+                ? data.newestChapter
+                : Math.max(...data.chaptersRead)}
+            </span>
           </Link>
           {!hasDeleteBtn && !hasViewCount && (
             <time>{calculateTime(data.updatedAt)}</time>
@@ -41,7 +47,7 @@ const PrimaryListItem = ({
           {hasDeleteBtn && (
             <Link
               className={cx("delete-btn")}
-              onClick={handleDeleteReadingHistory(data.id)}
+              onClick={() => handleDeleteReadingHistory(data.id)}
             >
               <FontAwesomeIcon icon={faTimes} />
               Xóa

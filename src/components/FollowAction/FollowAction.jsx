@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./FollowAction.module.scss";
-import { userApi } from "@/config/api";
 
 const cx = classNames.bind(styles);
 
@@ -14,30 +13,15 @@ function FollowAction({ storyID, markedAsReadStory }) {
   const [disabledBtn, setDisabledBtn] = useState(false);
 
   const handleFollowStory = async (id) => {
-    try {
-      await userApi.followStory(id);
-      setIsFollowed(!isFollowed);
-    } catch (error) {
-      console.log(error);
-    }
+  
   };
   
   const handleUnFollowStory = async (id) => {
-    try {
-      await userApi.followStory(id);
-      setIsFollowed(!isFollowed);
-    } catch (error) {
-      console.log(error);
-    }
+    
   };
   
   const handleMarkAsRead = async (storyID) => {
-    try {
-      await userApi.markAsRead(storyID);
-      setDisabledBtn(true);
-    } catch (error) {
-      console.log(error);
-    }
+    
   };
   
   return (

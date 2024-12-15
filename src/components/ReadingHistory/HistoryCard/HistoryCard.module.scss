@@ -28,7 +28,8 @@
     svg {
       padding-right: 4px;
     }
-    a{
+    span{
+      cursor: pointer;
       color: inherit;
       padding:  4px;
       &:hover{

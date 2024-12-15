@@ -70,5 +70,5 @@ export const getMyFollowedStories = async ()=> {
 export const getFollowedStoryByStoryId = async (storyId) => {
     const {data} =  await axiosInstance.get(`${storyPrefix}/my-followed-story/${storyId}`);
     
-    return data.result;
+    return data.result || null;
 }

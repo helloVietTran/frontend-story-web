@@ -12,8 +12,6 @@ import Grid from "@/components/Layout/Grid/Grid";
 import Row from "@/components/Layout/Row/Row";
 import Col from "@/components/Layout/Col/Col";
 
-import { authApi } from "../../config/api";
-
 function ForgotPassword() {
   const isOpen = useSelector((state) => state.navbar.isOpen);
 
@@ -36,14 +34,7 @@ function ForgotPassword() {
   });
 
   const handleSubmitData = async (data) => {
-    try {
-      authApi.forgotPassword(data);
-      setReceivedEmail(data.email);
-      setExistEmail(true);
-    } catch (error) {
-      setNotExistEmail(true);
-      console.log(error);
-    }
+   
   };
   return (
     <>
