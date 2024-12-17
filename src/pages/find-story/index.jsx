@@ -16,12 +16,14 @@ import Row from "@/components/Layout/Row/Row";
 import Col from "@/components/Layout/Col/Col";
 
 import { options } from "@/config/filter";
+import { useQuery } from "@tanstack/react-query";
+import createQueryFn from "@/utils/createQueryFn";
+import { findStory } from "@/api/storyApi";
 
 function FindStory() {
   const isOpen = useSelector((state) => state.navbar.isOpen);
 
-  const [genreParam, setGenreParam] = useState("");
-  const [searchByGenresData, setSearchByGenresData] = useState([]);
+  const [genreCode, setGenreCode] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,24 +41,16 @@ function FindStory() {
     if (checkValidUrl.length === 0) navigate("/404");
   }, [location.pathname, navigate]);
 
-  // cuộn về đầu trang
- /* useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await storyApi.queryStory(genreParam, status, sort);
-        setSearchByGenresData(res.data);
-      } catch (err) {
-        console.log("Can't find story by genre");
-      }
-    };
 
-    fetchData();
-  }, [genreParam, status, sort]); */
-
+  const {data} = useQuery({
+    queryKey: ["filterStory", genreCode, status, sort],
+    queryFn: createQueryFn(findStory),
+    retryDelay: ()=> 3000
+  })
   return (
     <>
       <Head />
@@ -71,10 +65,10 @@ function FindStory() {
               <Grid>
                 <Row>
                   <Col sizeLg={8}>
-                    <Sort searchByGenresData={searchByGenresData} />
+                    <Sort data={data} />
                   </Col>
                   <Col sizeLg={4}>
-                    <Category setGenreParam={setGenreParam} />
+                    <Category setGenreCode={setGenreCode} />
                   </Col>
                 </Row>
               </Grid>

@@ -32,7 +32,7 @@ function TopUser() {
       />
       {data && data.map((user, index) => {
         return (
-          <div className={cx("topUser-item", themeClassName)} key={user._id}>
+          <div className={cx("topUser-item", themeClassName)} key={user.id}>
 
             <TextRank 
               index={index}

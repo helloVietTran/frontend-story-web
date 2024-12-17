@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -35,7 +35,6 @@ function FollowStory() {
     staleTime: 5 * 60 * 1000,
   });
 
-  console.log(followedData);
   return (
     <DefaultLayout>
       <Container shouldApplyPadding isBackgroundVisible>

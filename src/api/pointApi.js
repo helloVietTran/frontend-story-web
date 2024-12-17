@@ -3,7 +3,7 @@ import axiosInstance from "./axiosConfig";
 const pointPrefix = "/points";
 
 export const getPoint = async () => {
-    const { data } = await axiosInstance.get(`${pointPrefix}`);
+    const { data } = await axiosInstance.get(`${pointPrefix}/my`);
 
     return data.result;
 }

@@ -60,6 +60,7 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     enabled: !!storyID,
     queryKey: ["myFollowedStory", storyID],
     queryFn: createQueryFn(getFollowedStoryByStoryId),
+    retryDelay: () => 10000
   });
 
   // check
@@ -161,7 +162,6 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     });
   };
 
-  console.log(story)
   const genreContent = (
     <>
       {story.genres && story.genres.map((item, index) => {
@@ -174,6 +174,7 @@ const StoryInfo = ({ story, isAuthenticated }) => {
         })}
     </>
   );
+
 
   return (
     <div className={cx("story-info", themeClassName)}>
@@ -261,6 +262,8 @@ const StoryInfo = ({ story, isAuthenticated }) => {
                 color="red"
                 title="Bỏ theo dõi"
                 onClick={handleUnFollowStory}
+               
+               
               />
             ) : (
               <PrimaryButton

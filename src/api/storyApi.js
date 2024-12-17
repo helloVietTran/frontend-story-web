@@ -66,9 +66,40 @@ export const getMyFollowedStories = async ()=> {
     return data.result;
 }
 
-
 export const getFollowedStoryByStoryId = async (storyId) => {
     const {data} =  await axiosInstance.get(`${storyPrefix}/my-followed-story/${storyId}`);
     
+    return data.result || null;
+}
+
+export const findStory = async (genreCode, status, sort) => {
+    if(genreCode == "")
+        genreCode = null
+ 
+    const {data} = await axiosInstance.get(`${storyPrefix}/find-story`,{
+        params: {
+            genreCode, 
+            status,
+            sort
+        }
+    });
+
+    return data.result || null;
+}
+
+export const findAdvanced = async (genreCodes, notGenreCodes , status,  sort, minChapter, gender) => {
+   
+
+    const {data} = await axiosInstance.get(`${storyPrefix}/find-story`,{
+        params: {
+            genreCodes,
+            notGenreCodes, 
+            status,
+            sort,
+            minChapter,
+            gender
+        }
+    });
+
     return data.result || null;
 }

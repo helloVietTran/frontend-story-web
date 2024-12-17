@@ -93,7 +93,7 @@ function CommentForm({
       </div>
       <div className="mt4" style={{ display: "flex", gap: "10px" }}>
         <PrimaryButton color="blue" title="Gửi" onClick={handleSubmitComment} />
-        <PrimaryButton color="gray" title="Xóa" onClick={handleClearContent} />
+        <PrimaryButton color="default" title="Xóa" onClick={handleClearContent} />
       </div>
     </div>
   );
@@ -103,7 +103,7 @@ CommentForm.propTypes = {
   hasDistance: PropTypes.bool,
   replyTo: PropTypes.string,
   parentCommentId: PropTypes.string,
-  atChapter: PropTypes.number.isRequired,
+  atChapter: PropTypes.number,
   onClose: PropTypes.func,
 };
 

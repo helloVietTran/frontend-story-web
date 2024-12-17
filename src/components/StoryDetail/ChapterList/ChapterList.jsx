@@ -78,7 +78,7 @@ ChapterList.propTypes = {
   viewMore: PropTypes.bool.isRequired,
   setViewMore: PropTypes.func.isRequired,
   action: PropTypes.func.isRequired,
-  data: PropTypes.any.isRequired,
+  data: PropTypes.any,
 };
 
 export default ChapterList;

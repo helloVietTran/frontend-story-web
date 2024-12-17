@@ -61,3 +61,7 @@ export const uploadAvatar = async (formData) => {
 export const changePassword = async (changePasswordData) => {
     await axiosInstance.patch(`${userPrefix}/change-password`, changePasswordData);
 }   
+
+export const findByGenre = async({queryCode, sort, status}) => {
+
+}

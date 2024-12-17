@@ -25,7 +25,6 @@ function addReadingHistoryOnLocal(story, chapter) {
     localReadingHistories.push(story);
   }
   localStorage.setItem("local_reading_histories", JSON.stringify(localReadingHistories));
-  console.log(JSON.stringify(localReadingHistories))
 
 }
 

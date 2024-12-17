@@ -4,34 +4,24 @@ import { Link } from "react-router-dom";
 
 import SecondaryHeading from "@/components/Heading/SecondaryHeading/SecondaryHeading";
 
-import styles from "./Comment.module.scss";
+import styles from "./MyComment.module.scss";
 import useTheme from "@/customHook/useTheme";
 import { useQuery } from "@tanstack/react-query";
-import createQueryFn from "@/utils/createQueryFn";
 import { getMyComment } from "@/api/commentApi";
-import { getMyInfo } from "@/api/userApi";
 
 const cx = classname.bind(styles);
 
-function Comment() {
+function MyComment() {
   const themeClassName = useTheme(cx);
 
-  const { data: user } = useQuery({
-    queryKey: ["userProfile"],
-    queryFn: getMyInfo,
-    staleTime: 5 * 60 * 1000,
-    retry: 3,
-    retryDelay: () => 3000,
-  });
-
   const { data: commentData } = useQuery({
-    enabled: !!user,
-    queryKey: user ? ["myComment", user.id] : [],
-    queryFn: createQueryFn(getMyComment),
+    queryKey: ["myComment"],
+    queryFn: getMyComment,
     staleTime: 5 * 60 * 1000,
     retry: 3,
     retryDelay: () => 3000,
   });
+  console.log(commentData);
 
   return (
     <div className={`${cx("comment")} ${themeClassName}`}>
@@ -40,6 +30,7 @@ function Comment() {
         <thead>
           <tr>
             <th colSpan="2">Tên truyện</th>
+            <th>Chapter</th>
             <th>Thời gian</th>
             <th>Nội dung</th>
           </tr>
@@ -62,8 +53,13 @@ function Comment() {
 
                   <td>
                     <div className={cx("wrapper")}>
-                      <time>{comment.createdAt}</time>
                       <Link>Chapter {comment.atChapter}</Link>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div className={cx("wrapper")}>
+                      <time>{comment.createdAt}</time>
                     </div>
                   </td>
                   <td>{comment.content}</td>
@@ -76,4 +72,4 @@ function Comment() {
   );
 }
 
-export default Comment;
+export default MyComment;

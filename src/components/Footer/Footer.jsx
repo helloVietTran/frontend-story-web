@@ -21,7 +21,7 @@ function Footer() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 400) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -32,6 +32,7 @@ function Footer() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

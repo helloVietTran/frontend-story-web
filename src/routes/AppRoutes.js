@@ -21,15 +21,16 @@ import NotFound from "../pages/not-found";
 import UserPage from "../pages/user";
 
 import UserProfile from "@/components/Information/UserOptionSide/UserProfile/UserProfile";
-import ChangePassword from "@/components/Information/UserOptionSide/ChangePassword/ChangePassword";
+import ChangingPassword from "@/components/Information/UserOptionSide/ChangingPassword/ChangingPassword";
 import UserPoint from "@/components/Information/UserOptionSide/UserPoint/UserPoint";
 import Shop from "@/components/Information/UserOptionSide/Shop/Shop";
 import Notifications from "@/components/Information/UserOptionSide/Notifications/Notifications";
 import Dashboard from "@/components/Information/UserOptionSide/Dashboard/Dashboard";
-import Comment from "@/components/Information/UserOptionSide/Comment/Comment";
-import ComicFollowed from "@/components/Information/UserOptionSide/ComicFollowed/ComicFollowed";
+import MyComment from "@/components/Information/UserOptionSide/MyComment/MyComment";
 
 import { introspect } from "@/redux/authSlice";
+import MyFollowedComic from "@/components/Information/UserOptionSide/MyFollowedComic/MyFollowedComic";
+
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -63,13 +64,13 @@ const AppRoutes = () => {
       element: isAuthenticated ? <InformationPage /> : <Navigate to='/login'/>,
       children: [
         { path: "dashboard", element: <Dashboard /> },
-        { path: "userProfile", element: <UserProfile /> },
-        { path: "changePassword", element: <ChangePassword /> },
-        { path: "userPoint", element: <UserPoint /> },
+        { path: "user-profile", element: <UserProfile /> },
+        { path: "changing-password", element: <ChangingPassword /> },
+        { path: "user-point", element: <UserPoint /> },
         { path: "shop", element: <Shop /> },
-        { path: "notifications", element: <Notifications /> },
-        { path: "comment", element: <Comment /> },
-        { path: "comicFollowed", element: <ComicFollowed /> },
+        { path: "notification", element: <Notifications /> },
+        { path: "my-comment", element: <MyComment /> },
+        { path: "my-followed-comic", element: <MyFollowedComic /> },
       ],
     },
   ];

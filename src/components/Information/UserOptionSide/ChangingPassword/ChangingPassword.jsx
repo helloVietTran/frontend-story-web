@@ -7,14 +7,14 @@ import Input from "@/components/Input/Input";
 import SecondaryHeading from "@/components/Heading/SecondaryHeading/SecondaryHeading";
 import PrimaryButton from "@/components/Button/PrimaryButton/PrimaryButton";
 
-import styles from "./ChangePassword.module.scss";
+import styles from "./ChangingPassword.module.scss";
 import useTheme from "@/customHook/useTheme";
 import { changePassword } from "@/api/userApi";
 import toast from "react-hot-toast";
 
 const cx = classname.bind(styles);
 
-function ChangePassWord() {
+function ChangingPassWord() {
   const themeClassName = useTheme(cx);
   const [password, setPassword] = useState("");
   // define mutationFn
@@ -148,4 +148,4 @@ function ChangePassWord() {
   );
 }
 
-export default ChangePassWord;
+export default ChangingPassWord;
