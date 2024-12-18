@@ -19,8 +19,13 @@ import { getStories } from "@/api/storyApi";
 
 function Home() {
   const isOpen = useSelector((state) => state.navbar.isOpen);
-  const [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
+  const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
 
   const storiesQuery = useQuery({
@@ -30,10 +35,6 @@ function Home() {
       console.error("Error fetching stories:", error);
     },
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>
@@ -64,5 +65,5 @@ function Home() {
     </>
   );
 }
-//storyQuery.data
+
 export default Home;

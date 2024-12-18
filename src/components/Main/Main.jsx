@@ -11,9 +11,16 @@ import SliderHome from "../SliderHome/SliderHome";
 import StoryCard from "../StoryCard/StoryCard";
 import BreadCumb from "@/components/BreadCumb/BreadCumb";
 import Pagination from "../Pagination/Pagination";
+import { useEffect, useState } from "react";
+import getReadingHistoriesFromLocal from "@/utils/getReadingHistoryFromLocal";
 
-function Main({ children, title, isBreadcrumbHidden, data}) {
+function Main({ children, title, isBreadcrumbHidden, data }) {
+  const [localReadingHistories, setLocalReadingHistories] = useState([]);
 
+  useEffect(() => {
+    setLocalReadingHistories(getReadingHistoriesFromLocal());
+  }, [setLocalReadingHistories]);
+  
   return (
     <DefaultLayout>
       <Container isBackgroundVisible shouldApplyPadding>
@@ -32,19 +39,19 @@ function Main({ children, title, isBreadcrumbHidden, data}) {
               <Grid>
                 <Row>
                   {data.data.map((item) => {
-                  
                     return (
                       <Col sizeMd={3} sizeSm={4} sizeXs={6} key={item.id}>
-                        <StoryCard data={item} />
+                        <StoryCard
+                          data={item}
+                          readingHistoryData={localReadingHistories}// lịch sử đọc truyện từ local
+                        />
                       </Col>
                     );
                   })}
                 </Row>
               </Grid>
 
-              <Pagination 
-                data={data}
-              />
+              <Pagination data={data} />
             </Col>
             <Col sizeLg={4} sizeXs={12}>
               {children}

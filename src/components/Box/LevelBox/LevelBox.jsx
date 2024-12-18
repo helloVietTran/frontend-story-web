@@ -7,7 +7,7 @@ import styles from "./LevelBox.module.scss";
 const cx = classNames.bind(styles);
 
 const LevelBox = ({
-    level, point, process
+    level, point, process=0
 }) => {
 
   return (

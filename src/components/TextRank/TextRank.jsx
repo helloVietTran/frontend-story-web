@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import PropTypes from "prop-types";
 
-import useTheme from '../../customHook/useTheme';
+import useTheme from '@/customHook/useTheme';
 import styles from "./TextRank.module.scss";
 
 const cx = classNames.bind(styles);

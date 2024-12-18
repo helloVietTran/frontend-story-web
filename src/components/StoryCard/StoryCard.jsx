@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-
-import FollowAction from "../FollowAction/FollowAction";
 
 import styles from "./StoryCard.module.scss";
 import useTheme from "@/customHook/useTheme";
@@ -13,8 +11,18 @@ import formatNumber from "@/utils/formatNumber";
 
 const cx = classNames.bind(styles);
 
-function StoryCard({ data, followAction, markedAsReadStory }) {
+function StoryCard({ data, readingHistoryData }) {
   const themeClassName = useTheme(cx);
+
+  const hasReadChapter = useMemo(
+    () => (storyId, chapter) => {
+      if (!readingHistoryData) return false;
+      return readingHistoryData.some(
+        (item) => item.id === storyId && item.chaptersRead.includes(chapter)
+      );
+    },
+    [readingHistoryData]
+  );
   return (
     <div className={`${cx("card-item")}`}>
       <div className={cx("card-body")}>
@@ -41,14 +49,10 @@ function StoryCard({ data, followAction, markedAsReadStory }) {
         </div>
       </div>
 
-      {followAction && (
-        <FollowAction
-          storyID={data._id}
-          markedAsReadStory={markedAsReadStory}
-        />
-      )}
-
-      <Link to={`/story/${data.slug}/${data.id}`} className={cx("name")}>
+      <Link
+        to={`/story/${data.slug}/${data.id}`}
+        className={`${cx("name")} ${themeClassName}`}
+      >
         {data.name}
       </Link>
 
@@ -56,7 +60,14 @@ function StoryCard({ data, followAction, markedAsReadStory }) {
         {data.chapters ? (
           data.chapters.map((chapter) => {
             return (
-              <li className={cx("chapter-link")} key={chapter.id}>
+              <li
+                className={
+                  hasReadChapter(data.id, chapter.chap)
+                    ? cx("chapter-link", "read")
+                    : cx("chapter-link")
+                }
+                key={chapter.id}
+              >
                 <Link to={`/story/${data.slug}/${data.id}/${chapter.slug}`}>
                   Chap {chapter.chap}
                 </Link>
@@ -65,33 +76,21 @@ function StoryCard({ data, followAction, markedAsReadStory }) {
             );
           })
         ) : (
-          <>
-            <li className={cx("chapter-link")}>
-              <Link
-                to={`/story/${data.slug}/${data.id}/chap-${data.newestChapter}`}
-              >
-                Chap {data.newestChapter}
-              </Link>
-            </li>
-            <li className={cx("chapter-link")}>
-              <Link
-                to={`/story/${data.slug}/${data.id}/chap-${
-                  data.newestChapter - 1
-                }`}
-              >
-                Chap {data.newestChapter - 1}
-              </Link>
-            </li>
-            <li className={cx("chapter-link")}>
-              <Link
-                to={`/story/${data.slug}/${data.id}/chap-${
-                  data.newestChapter - 2
-                }`}
-              >
-                Chap {data.newestChapter - 2}
-              </Link>
-            </li>
-          </>
+          <li
+            className={
+              hasReadChapter(data.id, data.newestChapter)
+                ? cx("chapter-link", "read")
+                : cx("chapter-link")
+            }
+            key={data.newestChapter}
+          >
+            <span>Chap mới nhất</span> 
+            <Link
+              to={`/story/${data.slug}/${data.id}/chap-${data.newestChapter}`}
+            >
+              Chapter {data.newestChapter}
+            </Link>
+          </li>
         )}
       </ul>
     </div>
@@ -99,23 +98,7 @@ function StoryCard({ data, followAction, markedAsReadStory }) {
 }
 
 StoryCard.propTypes = {
-  item: PropTypes.object.isRequired,
-  followAction: PropTypes.func,
-  markedAsReadStory: PropTypes.func,
+  data: PropTypes.object.isRequired,
+  readingHistoryData: PropTypes.array,
 };
 export default StoryCard;
-
-/* chapterList.map( (chapter, index) => {
-            return
-            (
-              <li
-                className={`${cx("chapter-link")} ${
-                    true
-                    ? cx("read")
-                    : cx("unread")
-                }`}
-                key={index}
-              >
-                
-            )
-          }) */

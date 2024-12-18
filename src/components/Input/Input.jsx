@@ -18,7 +18,7 @@ const Input = ({
   register,
   onChange,
 }) => {
-  const [isHidePassword, setIsHidePassWord] = useState(false);
+  const [isHidePassword, setIsHidePassWord] = useState(true);
   return (
     <div
       className={cx("input-container")}

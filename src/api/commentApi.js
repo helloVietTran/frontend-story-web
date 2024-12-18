@@ -7,8 +7,8 @@ export const getNewComment = async() => {
     return data.result;
 }
 
-export const getMyComment = async(userId) => {
-    const {data} = await axiosInstance.get(`${commentPrefix}/users/${userId}`);
+export const getMyComment = async() => {
+    const {data} = await axiosInstance.get(`${commentPrefix}/my`);
 
     return data.result.data;
 }

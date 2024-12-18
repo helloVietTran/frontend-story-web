@@ -98,7 +98,7 @@ function Dashboard() {
                         </div>
                         <div className={cx("process")}>
                           <span
-                            style={{ width: user.level.process }}
+                            style={{ width: user.level.process * 100 + "%" }}
                             className={cx("process-bar", "animate")}
                           >
                             {user.level.process * 100}%

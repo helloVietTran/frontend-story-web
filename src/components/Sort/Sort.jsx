@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  useParams,
-  useLocation,
-  useSearchParams,
-} from "react-router-dom";
+import { useParams, useLocation, useSearchParams } from "react-router-dom";
 import queryString from "query-string";
 import classNames from "classnames/bind";
 import { faEye, faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
@@ -12,16 +8,17 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 import Grid from "../Layout/Grid/Grid";
 import Row from "@/components/Layout/Row/Row";
 import Col from "@/components/Layout/Col/Col";
-import FilterButton  from "@/components/Button/FilterButton/FilterButton";
+import FilterButton from "@/components/Button/FilterButton/FilterButton";
 import GenreSelect from "../GenreSelect/GenreSelect";
 import StoryCard from "../StoryCard/StoryCard";
 
 import { options } from "@/config/filter";
 import useTheme from "@/customHook/useTheme";
 import styles from "./Sort.module.scss";
+import PropTypes from "prop-types";
 
 const cx = classNames.bind(styles);
-function Sort({ searchByGenresData }) {
+function Sort({ data }) {
   const [activeNavLink, setActiveNavLink] = useState("");
 
   const [searchParams] = useSearchParams({ status: "-1", sort: "1" });
@@ -33,27 +30,16 @@ function Sort({ searchByGenresData }) {
 
   useEffect(() => {
     const checkLinkActive = () => {
-      if (isActive("status", "-1")) {
-        setActiveNavLink("item 1");
-      } else if (isActive("status", "1")) {
-        setActiveNavLink("item 2");
-      } else if (isActive("status", "2")) {
-        setActiveNavLink("item 3");
-      } else if (isActive("sort", "1")) {
-        setActiveNavLink("item 4");
-      } else if (isActive("sort", "2")) {
-        setActiveNavLink("item 5");
-      } else if (isActive("sort", "10")) {
-        setActiveNavLink("item 6");
-      } else if (isActive("sort", "11")) {
-        setActiveNavLink("item 7");
-      } else if (isActive("sort", "20")) {
-        setActiveNavLink("item 8");
-      } else if (isActive("sort", "21")) {
-        setActiveNavLink("item 9");
-      } else if (isActive("sort", "22")) {
-        setActiveNavLink("item 10");
-      }
+      if (isActive("status", "-1")) setActiveNavLink("item 1");
+      else if (isActive("status", "1")) setActiveNavLink("item 2");
+      else if (isActive("status", "2")) setActiveNavLink("item 3");
+      else if (isActive("sort", "1")) setActiveNavLink("item 4");
+      else if (isActive("sort", "2")) setActiveNavLink("item 5");
+      else if (isActive("sort", "10")) setActiveNavLink("item 6");
+      else if (isActive("sort", "11")) setActiveNavLink("item 7");
+      else if (isActive("sort", "20")) setActiveNavLink("item 8");
+      else if (isActive("sort", "21")) setActiveNavLink("item 9");
+      else if (isActive("sort", "22")) setActiveNavLink("item 10");
     };
     checkLinkActive();
     return () => setActiveNavLink(null);
@@ -83,10 +69,8 @@ function Sort({ searchByGenresData }) {
         <b>{genreFeild === undefined ? null : genreFeild.name}</b>
       </h1>
 
-      <div className={cx('hide')}>
-        <GenreSelect 
-          options={options}
-        />
+      <div className={cx("hide")}>
+        <GenreSelect options={options} />
       </div>
       <div className={cx("genre-description")}>
         <p>
@@ -216,15 +200,11 @@ function Sort({ searchByGenresData }) {
                 />
               </ul>
             </Col>
-            {searchByGenresData.length > 0 &&
-              searchByGenresData.map((item) => {
+            {data &&
+              data.map((item) => {
                 return (
-                  <Col 
-                  sizeLg={3}
-                  sizeMd={4}
-                  sizeXs={6}
-                  key={item._id}>
-                    <StoryCard item={item} />
+                  <Col sizeLg={3} sizeMd={4} sizeXs={6} key={item.id}>
+                    <StoryCard data={item} />
                   </Col>
                 );
               })}
@@ -234,5 +214,8 @@ function Sort({ searchByGenresData }) {
     </div>
   );
 }
+Sort.propTypes = {
+  data: PropTypes.array.isRequired,
+};
 
 export default Sort;

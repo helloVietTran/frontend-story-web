@@ -1,19 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import classname from "classnames/bind";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 
 import SecondaryHeading from "@/components/Heading/SecondaryHeading/SecondaryHeading";
 import NotifyBox from "@/components/Box/NotifyBox/NotifyBox";
-import FollowAction from "@/components/FollowAction/FollowAction";
 
-import styles from "./ComicFollowed.module.scss";
+import styles from "./MyFollowedComic.module.scss";
 import useTheme from "@/customHook/useTheme";
 import { getMyFollowedStories } from "@/api/storyApi";
 
 const cx = classname.bind(styles);
 
-function ComicFollowed() {
+function MyFollowedComic() {
   const themeClassName = useTheme(cx);
 
   const { data: followedData } = useQuery({
@@ -53,10 +52,7 @@ function ComicFollowed() {
                       <Link className={cx("comic-name")}>
                         {follow.story.name}
                       </Link>
-                      {/* <FollowAction
-                        storyID={story._id}
-                        markedAsReadStory={}
-                      />*/}
+                    
                     </td>
                     <td className={cx("chapter")}>
                       <div className="d-flex">
@@ -78,4 +74,4 @@ function ComicFollowed() {
   );
 }
 
-export default ComicFollowed;
+export default MyFollowedComic;

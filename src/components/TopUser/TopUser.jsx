@@ -32,7 +32,7 @@ function TopUser() {
       />
       {data && data.map((user, index) => {
         return (
-          <div className={cx("topUser-item", themeClassName)} key={user._id}>
+          <div className={cx("topUser-item", themeClassName)} key={user.id}>
 
             <TextRank 
               index={index}
@@ -49,7 +49,7 @@ function TopUser() {
 
                 <LevelBox 
                   level={user.level.level}
-                  process={user.level.proces*100}
+                  process={user.level.process*100}
                 />
                 <LevelBox 
                   point={user.level.rankName}

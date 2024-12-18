@@ -12,6 +12,7 @@ import styles from "./UserPoint.module.scss";
 import useTheme from "@/customHook/useTheme";
 import { attendance, getPoint } from "@/api/pointApi";
 import isToday from "@/utils/isToday";
+import calculateTime from "@/utils/calculateTime";
 
 const cx = classname.bind(styles);
 
@@ -85,12 +86,12 @@ function UserPoint() {
             <th>Linh thạch</th>
           </thead>
           <tbody>
-            {pointData &&
+            {pointData.pointHistories &&
               pointData.pointHistories.reverse().map((item) => {
                 return (
                   <tr key={item.id}>
-                    <td>{item.createdAt}</td>
-                    <td>{item.type}</td>
+                    <td>{calculateTime(item.createdAt)}</td>
+                    <td>{item.type === "ATTENDANCE" ? "Điểm danh" : "Mua vật phẩm"}</td>
                     <td
                       className={
                         item.type === "ATTENDANCE"
@@ -98,7 +99,7 @@ function UserPoint() {
                           : "text-danger"
                       }
                     >
-                      {item.pointFluctuation}
+                      {item?.description}
                     </td>
                   </tr>
                 );

@@ -9,20 +9,20 @@ import {
 import PropTypes from "prop-types";
 
 import styles from "./HistoryCard.module.scss";
-import useTheme from "../../../customHook/useTheme";
+import useTheme from "@/customHook/useTheme";
 
 const cx = classNames.bind(styles);
 
-function HistoryCard({ data }) {
+function HistoryCard({ data, handleDeleteReadingHistory }) {
   const themeClassName = useTheme(cx);
   return (
     <div className={`${cx("card-item")}`}>
       <div className={cx("card-body")}>
-        <Link to={`/story/${data.slug}/${data.id}`}>
-          <img className={cx("card-img")} src={data.imgSrc} alt="story-img" />
+        <Link to={`/story/${data.slug || data.story.slug}/${data.id ||data.story.id}`}>
+          <img className={cx("card-img")} src={data.imgSrc || data.story.imgSrc} alt="story-img" />
         </Link>
         <div className={cx("delete-btn")}>
-          <span onClick={() => {}}>
+          <span onClick={() => handleDeleteReadingHistory(data.id)}>
             <FontAwesomeIcon icon={faTimes} />
             Xóa
           </span>
@@ -30,11 +30,11 @@ function HistoryCard({ data }) {
       </div>
 
       <div className={`${cx("chapter-list")} ${themeClassName}`}>
-        <Link to={`/story/${data.slug}/${data.id}`} className={cx("name")}>
+        <Link to={`/story/${data.slug || data.story.slug}/${data.id ||data.story.id}`} className={cx("name")}>
           {data.name}
         </Link>
         <Link
-          to={`/story/${data.slug}/${data._id}/chap-${Math.max(
+          to={`/story/${data.slug || data.story.slug}/${data.id ||data.story.id}/chap-${Math.max(
             ...data.chaptersRead
           )}`}
           className={cx("last-read")}
@@ -49,6 +49,7 @@ function HistoryCard({ data }) {
 
 HistoryCard.propTypes = {
   data: PropTypes.object.isRequired,
+  handleDeleteReadingHistory: PropTypes.func.isRequired
 };
 
 export default HistoryCard;

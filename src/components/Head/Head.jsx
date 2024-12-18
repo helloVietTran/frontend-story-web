@@ -37,7 +37,6 @@ function Head() {
     enabled: isAuthenticated,
     queryKey: ["userProfile"],
     queryFn: getMyInfo,
-    staleTime: 5 * 60 * 1000,
     retryDelay: () => 3000
   })
 

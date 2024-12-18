@@ -50,9 +50,13 @@ export const getStoryById = async(storyId) => {
     return data.result;
 }
 
-export const ratingStory = async (storyId, point) => {
-   await axiosInstance.patch(`${storyPrefix}/${storyId}/rate`, point);
-}
+export const ratingStory = async ({ storyId, point }) => {
+    await axiosInstance.patch(`${storyPrefix}/${storyId}/rate`, null, {
+      params: {
+        point,
+      },
+    });
+  };
 
 export const getTopStories = async () => {
     const { data } = await axiosInstance.get(`${storyPrefix}/top-views`);
@@ -66,9 +70,47 @@ export const getMyFollowedStories = async ()=> {
     return data.result;
 }
 
-
 export const getFollowedStoryByStoryId = async (storyId) => {
     const {data} =  await axiosInstance.get(`${storyPrefix}/my-followed-story/${storyId}`);
     
+    return data.result || null;
+}
+
+export const findStory = async (genreCode, status, sort, keyword) => {
+    if(genreCode === "")
+        genreCode = null
+ 
+    const {data} = await axiosInstance.get(`${storyPrefix}/find-story`,{
+        params: {
+            genreCode, 
+            status,
+            sort,
+            keyword
+        }
+    });
+
+    return data.result || null;
+}
+
+export const findAdvanced = async (genreCodes, notGenreCodes , status,  sort, minChapter, gender) => {
+   
+
+    const {data} = await axiosInstance.get(`${storyPrefix}/find-story`,{
+        params: {
+            genreCodes,
+            notGenreCodes, 
+            status,
+            sort,
+            minChapter,
+            gender
+        }
+    });
+
+    return data.result || null;
+}
+
+export const getFeaturedStories = async()=> {
+    const {data} = await axiosInstance.get(`${storyPrefix}/featured-stories`);
+
     return data.result || null;
 }

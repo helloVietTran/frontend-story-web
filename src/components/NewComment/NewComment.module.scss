@@ -1,15 +1,9 @@
 .newComment-wrapper {
-  height: 1000px;
-  overflow-y: hidden;
-  /* Firefox */
-  scrollbar-width: none;
-
-  /* IE, Edge */
-  -ms-overflow-style: none;
+  max-height: 600px;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    display: none;
   }
 }
 

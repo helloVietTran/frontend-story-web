@@ -28,8 +28,8 @@ function TopStory() {
         <Link className={cx("active")} to="/">
           Top tháng
         </Link>
-        <Link to="/">Top tuần</Link>
-        <Link to="/">Top ngày</Link>
+        <Link to="/find-story?sort=11&status=-1">Top tuần</Link>
+        <Link to="/find-story?sort=10&status=-1">Top ngày</Link>
       </div>
       {data &&
         data.map((story, index) => {

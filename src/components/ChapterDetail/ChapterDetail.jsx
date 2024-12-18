@@ -25,6 +25,9 @@ import {
 import { getStoryById } from "@/api/storyApi";
 import { getCommentsByChapterId } from "@/api/commentApi";
 import addReadingHistoryOnLocal from "@/utils/addReadingHistoryOnLocal";
+import { increaseExperence } from "@/api/levelApi";
+import { useSelector } from "react-redux";
+import { updateReadingHistory } from "@/api/readingHistoryApi";
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +36,7 @@ function ChapterDetail() {
   const prevBtnRef = useRef();
 
   const themeClassName = useTheme(cx);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const { storyName, storyID, chap } = useParams();
@@ -70,15 +74,22 @@ function ChapterDetail() {
   // increase view mutation
   const increaseViewMutation = useMutation({
     mutationFn: increaseView,
-    onSuccess: () => {
-      console.log("increase view count successfull");
-    },
-    onError: () => {
-      console.log("Increase view failed");
-    },
+    retryDelay: () => 20000
   });
-  // khi đọc đủ 10 giây mới tăng view
+  // increase level
+  const increaseExperenceMutation = useMutation({
+    mutationFn: increaseExperence,
+    retryDelay: () => 20000
+  });
+
+  //add reading history in server
+  const updateReadingHistoryMutation = useMutation({
+    mutationFn: updateReadingHistory,
+    retryDelay: () => 20000
+  });
+
   useEffect(() => {
+    // khi đọc đủ 10 giây mới tăng view
     // lưu lịch sử đọc truyện trên storage
 
     const delay = setTimeout(() => {
@@ -99,12 +110,28 @@ function ChapterDetail() {
         storyId: storyID,
         chapterId: chapter?.id,
       });
+
+      updateReadingHistoryMutation.mutate({
+        storyId: storyID,
+        chapterRead: +chap.slice(5),
+      });
+
+      if (isAuthenticated) increaseExperenceMutation.mutate(chapter?.id);
     }, 10000);
 
     return () => clearTimeout(delay);
-  }, [chap.slice(5), addReadingHistoryOnLocal, increaseViewMutation]);
+  }, [
+    story,
+    storyID,
+    chapter,
+    chap,
+    increaseViewMutation,
+    increaseExperenceMutation,
+    updateReadingHistoryMutation,
+    isAuthenticated,
+  ]);
 
-  //********* IF URL CHANGE, IT WILL NAVIGATE TO NEW CHAPTER*/
+  //handle navigate when changing chapter
   useEffect(() => {
     navigate(`/story/${storyName}/${storyID}/chap-${currentChapter}`);
   }, [currentChapter, navigate, storyID, storyName]);

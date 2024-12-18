@@ -18,6 +18,7 @@ function CommentForm({
   parentCommentId,
   atChapter,
   replyTo,
+  onClose
 }) {
   const queryClient = useQueryClient();
   const [content, setContent] = useState("");
@@ -37,7 +38,9 @@ function CommentForm({
       toast.success("Comment thành công!", {
         style,
       });
+      setContent("");
       queryClient.invalidateQueries(["storyComments", storyID]);
+      if (onClose && parentCommentId) onClose(parentCommentId);
     },
     onError: () => {
       toast.error("Vui lòng thử lại sau!", {
@@ -93,7 +96,7 @@ function CommentForm({
       </div>
       <div className="mt4" style={{ display: "flex", gap: "10px" }}>
         <PrimaryButton color="blue" title="Gửi" onClick={handleSubmitComment} />
-        <PrimaryButton color="gray" title="Xóa" onClick={handleClearContent} />
+        <PrimaryButton color="default" title="Xóa" onClick={handleClearContent} />
       </div>
     </div>
   );
@@ -103,7 +106,7 @@ CommentForm.propTypes = {
   hasDistance: PropTypes.bool,
   replyTo: PropTypes.string,
   parentCommentId: PropTypes.string,
-  atChapter: PropTypes.number.isRequired,
+  atChapter: PropTypes.number,
   onClose: PropTypes.func,
 };
 

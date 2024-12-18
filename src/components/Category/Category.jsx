@@ -6,21 +6,22 @@ import classNames from "classnames/bind";
 import styles from "./Category.module.scss";
 import useTheme from "@/customHook/useTheme";
 import { options } from "@/config/filter";
+import PropTypes from "prop-types";
 
 const cx = classNames.bind(styles);
 
-function Category({ setGenreParam }) {
+function Category({ setGenreCode }) {
   const location = useLocation();
   const themeClassName = useTheme(cx);
 
   useEffect(() => {
-    if (location.pathname === "/find-story") setGenreParam("Tất cả");
+    if (location.pathname === "/find-story") setGenreCode("");
     else
       options.forEach((genre) => {
         if (location.pathname.includes(genre.path.split("/")[2]))
-          setGenreParam(genre.name);
+          setGenreCode(genre.queryCode);
       });
-  }, [location, setGenreParam, options]);
+  }, [location, setGenreCode, options]);
 
   const checkLinkActive = ({ isActive }) => (isActive ? cx("active") : null);
 
@@ -43,5 +44,10 @@ function Category({ setGenreParam }) {
     </>
   );
 }
+
+Category.propTypes = {
+  setGenreCode: PropTypes.func.isRequired,
+}
+
 
 export default Category;

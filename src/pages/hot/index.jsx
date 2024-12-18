@@ -19,10 +19,11 @@ function Hot() {
 
   const page = searchParams.get("page") || 1;
 
-  const storyQuery = useQuery({
+  const storiesQuery = useQuery({
     queryKey: ["hotStories", page],
     queryFn: createQueryFn(getHotStories),
   });
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,10 +35,10 @@ function Hot() {
         <NavBarModal />
       ) : (
         <>
-          {storyQuery?.data?.data && (
+          {storiesQuery?.data && (
             <>
               <NavBar />
-              <Main title="Truyện hot nhất" data={storyQuery.data}>
+              <Main title="Truyện hot nhất" data={storiesQuery.data}>
                 <TopStory />
               </Main>
               <Footer />

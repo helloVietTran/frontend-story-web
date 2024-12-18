@@ -26,25 +26,25 @@ function SortMenu() {
           <Col sizeXs={6}>
             <ul>
               <li className={cx("menu-item", "mr-7")}>
-                <Link>
+                <Link to="/find-story?sort=10&status=-1">
                   <FontAwesomeIcon icon={faEye} />
                   Top all
                 </Link>
               </li>
               <li className={cx("menu-item",  "mr-7")}>
-                <Link>
+                <Link to="/find-story?sort=10&status=-1">
                   <FontAwesomeIcon icon={faEye} />
                   Top tháng
                 </Link>
               </li>
               <li className={cx("menu-item",  "mr-7")}>
-                <Link>
+                <Link to = "/find-story?sort=11&status=-1">
                   <FontAwesomeIcon icon={faEye} />
                   Top tuần
                 </Link>
               </li>
               <li className={cx("menu-item",  "mr-7")}>
-                <Link>
+                <Link to="/find-story?sort=12&status=-1">
                   <FontAwesomeIcon icon={faEye} />
                   Top ngày
                 </Link>
@@ -69,7 +69,7 @@ function SortMenu() {
                 </Link>
               </li>
               <li className={cx("menu-item", "ml7")}>
-                <Link>
+                <Link to ="/find-story?sort=20&status=-1">
                   <FontAwesomeIcon icon={faThumbsUp} />
                   Yêu thích
                 </Link>
@@ -87,7 +87,7 @@ function SortMenu() {
                 </Link>
               </li>
               <li className={cx("menu-item", "ml7")}>
-                <Link>
+                <Link to="/find-story/action?sort=21&status=-1">
                   <FontAwesomeIcon icon={faComment} />
                   Bình luận
                 </Link>

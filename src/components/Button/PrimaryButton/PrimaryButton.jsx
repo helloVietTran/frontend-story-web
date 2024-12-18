@@ -17,6 +17,7 @@ const PrimaryButton = ({
   type,
   style,
 }) => {
+ 
   return (
     <button
       style={style}

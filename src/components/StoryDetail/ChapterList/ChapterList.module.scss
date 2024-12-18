@@ -49,6 +49,11 @@
     text-align: center;
   }
 }
+.chapter-item.read{
+  a, span.small{
+    color: silver;
+  }
+}
 
 .chapter-list.dark {
   a{

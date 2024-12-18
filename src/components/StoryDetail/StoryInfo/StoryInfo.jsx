@@ -60,6 +60,7 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     enabled: !!storyID,
     queryKey: ["myFollowedStory", storyID],
     queryFn: createQueryFn(getFollowedStoryByStoryId),
+    retryDelay: () => 10000
   });
 
   // check
@@ -109,15 +110,11 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     onSuccess: (data) => {
       toast.success("Rating thành công!", {
         style: toastStyles,
-        duration: 3000,
-        position: "top-center",
       });
     },
     onError: (error) => {
       toast.error("Có lỗi xảy ra. Vui lòng quay lại sau!", {
         style: toastStyles,
-        duration: 3000,
-        position: "top-center",
       });
     },
   });
@@ -136,7 +133,7 @@ const StoryInfo = ({ story, isAuthenticated }) => {
 
   const handleClick = (index) => {
     setRating(index);
-    ratingMutation.mutate(storyID, index); // index là số điểm đánh giá
+    ratingMutation.mutate({storyId: storyID, point: index}); // index là số điểm đánh giá
   };
 
   /***** *******Code cho chức năng follow**********/
@@ -161,7 +158,6 @@ const StoryInfo = ({ story, isAuthenticated }) => {
     });
   };
 
-  console.log(story)
   const genreContent = (
     <>
       {story.genres && story.genres.map((item, index) => {
@@ -174,6 +170,7 @@ const StoryInfo = ({ story, isAuthenticated }) => {
         })}
     </>
   );
+
 
   return (
     <div className={cx("story-info", themeClassName)}>
@@ -261,6 +258,8 @@ const StoryInfo = ({ story, isAuthenticated }) => {
                 color="red"
                 title="Bỏ theo dõi"
                 onClick={handleUnFollowStory}
+               
+               
               />
             ) : (
               <PrimaryButton

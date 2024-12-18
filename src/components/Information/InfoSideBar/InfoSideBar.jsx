@@ -35,20 +35,20 @@ function InfoSideBar({ isHided }) {
           <span className={"text"}>Thông tin chung</span>
         </NavLink>
       </li>
-      <li className={getActivedClass("/userProfile")}>
-        <NavLink to="userProfile" activeclassname={cx("active")}>
+      <li className={getActivedClass("/user-profile")}>
+        <NavLink to="user-profile" activeclassname={cx("active")}>
           <FontAwesomeIcon icon={faInfoCircle} />
           Thông tin tài khoản
         </NavLink>
       </li>
-      <li className={getActivedClass("/comicFollowed")}>
-        <NavLink to="comicFollowed" activeclassname={cx("active")}>
+      <li className={getActivedClass("/my-followed-comic")}>
+        <NavLink to="my-followed-comic" activeclassname={cx("active")}>
           <FontAwesomeIcon icon={faBook} />
           Truyện theo dõi
         </NavLink>
       </li>
-      <li className={getActivedClass("/userPoint")}>
-        <NavLink to="userPoint" activeclassname={cx("active")}>
+      <li className={getActivedClass("/user-point")}>
+        <NavLink to="user-point" activeclassname={cx("active")}>
           <FontAwesomeIcon icon={faList} />
           Linh thạch
         </NavLink>
@@ -60,22 +60,22 @@ function InfoSideBar({ isHided }) {
         </NavLink>
       </li>
 
-      <li className={getActivedClass("/comment")}>
-        <NavLink to="comment" activeclassname={cx("active")}>
+      <li className={getActivedClass("/my-comment")}>
+        <NavLink to="my-comment" activeclassname={cx("active")}>
           <FontAwesomeIcon icon={faCommentDots} />
           Bình luận
         </NavLink>
       </li>
 
-      <li className={getActivedClass("/notifications")}>
-        <NavLink to="notifications" activeclassname={cx("active")}>
+      <li className={getActivedClass("/notification")}>
+        <NavLink to="notification" activeclassname={cx("active")}>
           <FontAwesomeIcon icon={faComment} />
           Thông báo
         </NavLink>
       </li>
 
-      <li className={getActivedClass("/changePassWord")}>
-        <NavLink to="changePassWord" activeclassname={cx("active")}>
+      <li className={getActivedClass("/changing-password")}>
+        <NavLink to="changing-password" activeclassname={cx("active")}>
           <FontAwesomeIcon icon={faLock} />
           Đổi mật khẩu
         </NavLink>

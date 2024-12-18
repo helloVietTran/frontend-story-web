@@ -6,9 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./PrimaryListItem.module.scss";
-import useTheme from "../../../customHook/useTheme";
-import calculateTime from "../../../utils/calculateTime";
-import formatNumber from "../../../utils/formatNumber";
+import useTheme from "@/customHook/useTheme";
 
 const cx = classNames.bind(styles);
 
@@ -42,7 +40,7 @@ const PrimaryListItem = ({
             </span>
           </Link>
           {!hasDeleteBtn && !hasViewCount && (
-            <time>{calculateTime(data.updatedAt)}</time>
+            <time>{data.updatedAt}</time>
           )}
           {hasDeleteBtn && (
             <Link
@@ -56,7 +54,7 @@ const PrimaryListItem = ({
           {hasViewCount && (
             <span className={cx("view")}>
               <FontAwesomeIcon icon={faEye} />
-              {formatNumber(data.viewCount)}
+              {data.viewCount}
             </span>
           )}
         </div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
+import { useQuery } from "@tanstack/react-query";
+
 
 import BreadCumb from "@/components/BreadCumb/BreadCumb";
 import InfoSideBar from "./InfoSideBar/InfoSideBar";
@@ -14,15 +15,24 @@ import Col from "../Layout/Col/Col";
 import Row from "../Layout/Row/Row";
 
 import styles from "./Information.module.scss";
+import { getMyInfo } from "@/api/userApi";
 
 const cx = classNames.bind(styles);
 function Information() {
-  const { userData } = useSelector((state) => state.auth);
   const [isHided, setIsHided] = useState(false);
 
   const handleClick = () => {
     setIsHided(!isHided);
   };
+
+  const { data: user } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: getMyInfo,
+    staleTime: 5 * 60 * 1000,
+    retry: 3,
+    retryDelay: () => 3000,
+  });
+
 
   return (
     <DefaultLayout>
@@ -37,14 +47,14 @@ function Information() {
                     <img
                       alt="user"
                       src={
-                        userData?.avatar
-                          ? userData.avatar
+                        user?.imgSrc
+                          ? user.imgSrc
                           : "/images/anonymous/anonymous.png"
                       }
                     />
                     <div className={cx("user-text")}>
                       <span className={cx("title")}>Tài khoản của</span>
-                      <span className={cx("user-name")}>{userData?.name}</span>
+                      <span className={cx("user-name")}>{user?.name}</span>
                     </div>
                     <FontAwesomeIcon
                       icon={isHided ? faBars : faAngleDown}

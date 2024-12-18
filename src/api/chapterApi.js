@@ -37,5 +37,5 @@ export const getChapterByStoryIdAndChap = async (storyId, chap) => {
 
 // thông qua tăng view chapter sẽ tăng view truyện
 export const increaseView =  async ({storyId, chapterId}) => {
-    await axiosInstance.patch(`${storyPrefix}/${storyId}/chapters/${chapterId}/increase-view"`)
+    await axiosInstance.patch(`${storyPrefix}/${storyId}/chapters/${chapterId}/increase-view`)
 }

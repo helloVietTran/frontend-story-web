@@ -1,8 +1,10 @@
 .card-item {
   margin-top: 12px;
+
   .card-body {
     position: relative;
   }
+
   .card-img {
     object-fit: cover;
     width: 100%;
@@ -11,6 +13,7 @@
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   }
+
   .card-info {
     position: absolute;
     right: 0;
@@ -22,14 +25,17 @@
     background-color: #000;
     opacity: 0.65;
     line-height: 25px;
+
     .group {
       display: flex;
       align-items: center;
       padding: 0 4px;
+
       span {
         font-size: 1.2rem;
         color: white;
       }
+
       .icon {
         color: white;
         font-size: 1.2rem;
@@ -38,26 +44,31 @@
     }
   }
 }
+
 .name {
   font-size: 1.6rem;
   color: #000;
   text-transform: capitalize;
   padding-top: 5px;
   margin-bottom: 7px;
+
   &:hover {
     color: var(--link-hover--color);
   }
 }
+
 .chapter-list {
   .chapter-link {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-top: 6px;
+
     a {
       font-size: 1.3rem;
       color: #000;
       font-weight: 400;
+
       &:hover {
         color: var(--link-hover--color);
       }
@@ -70,21 +81,34 @@
       font-weight: 400;
     }
   }
+
   .read {
     a {
-      color: silver;
+      color: silver !important;
     }
   }
 }
+
 .chapter-list.dark {
+
+  span {
+    color: #999;
+  }
+
   a {
     color: white;
+
     &:hover {
       color: var(--red--hover--color);
     }
   }
 
-  span {
-    color: #999;
+}
+
+.name.dark {
+  color: white;
+
+  &:hover {
+    color: var(--red--hover--color);
   }
 }
