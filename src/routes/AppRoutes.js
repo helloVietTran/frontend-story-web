@@ -15,8 +15,8 @@ import RegisterPage from "../pages/register";
 import Story from "../pages/story";
 import Chapter from "../pages/chapter";
 import InformationPage from "../pages/information";
-import ForgotPassword from "../pages/forgot-password";
-import ResetPassword from "../pages/reset-password";
+import ForgotPasswordPage from "../pages/forgot-password";
+import ResetPasswordPage from "../pages/reset-password";
 import NotFound from "../pages/not-found";
 import UserPage from "../pages/user";
 
@@ -53,8 +53,8 @@ const AppRoutes = () => {
     { path: "/girl-story", element: <GirlStory /> },
     { path: "/login", element: <LoginPage /> },
     { path: "/register", element: <RegisterPage /> },
-    { path: "/reset-password", element: <ResetPassword /> },
-    { path: "/forgot-password", element: <ForgotPassword /> },
+    { path: "/reset-password", element: <ResetPasswordPage /> },
+    { path: "/forgot-password", element: <ForgotPasswordPage /> },
     { path: "/user/:userID", element: <UserPage /> },
     { path: "/story/:storyName/:storyID", element: <Story /> },
     { path: "/story/:storyName/:storyID/:chap/", element: <Chapter /> },

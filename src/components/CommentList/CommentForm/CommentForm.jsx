@@ -18,6 +18,7 @@ function CommentForm({
   parentCommentId,
   atChapter,
   replyTo,
+  onClose
 }) {
   const queryClient = useQueryClient();
   const [content, setContent] = useState("");
@@ -37,7 +38,9 @@ function CommentForm({
       toast.success("Comment thành công!", {
         style,
       });
+      setContent("");
       queryClient.invalidateQueries(["storyComments", storyID]);
+      if (onClose && parentCommentId) onClose(parentCommentId);
     },
     onError: () => {
       toast.error("Vui lòng thử lại sau!", {

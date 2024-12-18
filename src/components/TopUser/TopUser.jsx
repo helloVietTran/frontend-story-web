@@ -49,7 +49,7 @@ function TopUser() {
 
                 <LevelBox 
                   level={user.level.level}
-                  process={user.level.proces*100}
+                  process={user.level.process*100}
                 />
                 <LevelBox 
                   point={user.level.rankName}

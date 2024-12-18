@@ -19,9 +19,10 @@ import Input from "../Input/Input";
 import BreadCumb from "@/components/BreadCumb/BreadCumb";
 
 import { createUser } from "@/api/userApi";
-import { login as loginAction } from "@/redux/authSlice";
+import { login as loginAction, logout } from "@/redux/authSlice";
 import styles from "./Register.module.scss";
 import useTheme from "../../customHook/useTheme";
+import { login } from "@/api/authApi";
 
 const cx = classNames.bind(styles);
 
@@ -32,27 +33,32 @@ function Register() {
 
   const [password, setPassword] = useState(""); // để so sánh repassword với password
 
+  const style = {
+    fontSize: '14px'
+  };
+
+  const loginMutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data)=> {
+      dispatch(loginAction(data));
+      navigate("/");
+    }
+  })
   const createUserMutation = useMutation({
     mutationFn: createUser,
     onSuccess: (data) => {
       toast.success("Đăng ký thành công!", {
-        style:{
-          fontSize: '14px'
-        },
-        duration: 3000,
-        position: "top-center",
+        style,
       });
-
-      dispatch(loginAction(data))  
-      navigate("/")
+      
+      loginMutation.mutate({
+        email: data.email,
+        password
+      })
     },
     onError: (error) => {
       toast.error("Tài khoản đã tồn tại!", {
-        style:{
-          fontSize: '14px'
-        },
-        duration: 3000,
-        position: "top-center",
+        style,
       });
     },
   });
@@ -71,6 +77,7 @@ function Register() {
 
   // submit form and login
   const handleSubmitData = async (data) => {
+    dispatch(logout())
     createUserMutation.mutate(data);
   };
 
@@ -183,10 +190,7 @@ function Register() {
                     </div>
                     <div>
                       <SubmitButton type="normal" title="Đăng kí" />
-                      <SubmitButton
-                        type="google"
-                        title="Đăng nhập với tài khoản Google"
-                      />
+                     
                     </div>
                   </form>
                 </div>
@@ -200,3 +204,8 @@ function Register() {
 }
 
 export default Register;
+
+/** <SubmitButton
+      type="google"
+      title="Đăng nhập với tài khoản Google"
+                      /> */

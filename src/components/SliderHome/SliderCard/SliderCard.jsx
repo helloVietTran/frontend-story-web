@@ -4,24 +4,25 @@ import styles from "./SliderCard.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 const cx = classNames.bind(styles);
-function SliderCard({ item, key }) {
+function SliderCard({ data, key }) {
   return (
     <div className={cx("story-card")} key={key}>
-      <Link to="/">
-        <img src={item.src} alt="slider" />
+      <Link to={`/story/${data.slug}/${data.id}`}>
+        <img src={data.imgSrc} alt="slider" />
         <span className={cx("overlay")}></span>       
         <div className={cx("card-caption")}>
-          <h3 className={cx("name")}>{item.name}</h3>
+          <h3 className={cx("name")}>{data.name}</h3>
           <div className={cx("card-description")}>
-            <span className={cx("chap")}>Chapter {item.lastChap}</span>
+            <span className={cx("chap")}>Chapter {data.newestChapter}</span>
             <span className={cx("update")}>
               <FontAwesomeIcon
                 icon={faClockRotateLeft}
                 className={cx("clock-icon")}
               />
-              {item.lastUpdated}
+              {data.updatedAt}
             </span>
           </div>
         </div>
@@ -30,4 +31,8 @@ function SliderCard({ item, key }) {
   );
 }
 
+SliderCard.propTypes = {
+  data: PropTypes.object.isRequired,
+  key: PropTypes.any.isRequired
+}
 export default SliderCard;

@@ -74,34 +74,19 @@ function ChapterDetail() {
   // increase view mutation
   const increaseViewMutation = useMutation({
     mutationFn: increaseView,
-    onSuccess: () => {
-      console.log("Increase view successfull");
-    },
-    onError: () => {
-      console.log("Increase view failed");
-    },
+    retryDelay: () => 20000
   });
   // increase level
   const increaseExperenceMutation = useMutation({
     mutationFn: increaseExperence,
-    onSuccess: () => {
-      console.log("Increase experence successfull");
-    },
-    onError: () => {
-      console.log("Increase experence failed");
-    },
+    retryDelay: () => 20000
   });
 
   //add reading history in server
   const updateReadingHistoryMutation = useMutation({
     mutationFn: updateReadingHistory,
-    onSuccess: ()=> {
-      console.log("Update reading history successfull");
-    },
-    onError: ()=>{
-      console.log("Update reading history failed");
-    }
-  })
+    retryDelay: () => 20000
+  });
 
   useEffect(() => {
     // khi đọc đủ 10 giây mới tăng view
@@ -128,9 +113,8 @@ function ChapterDetail() {
 
       updateReadingHistoryMutation.mutate({
         storyId: storyID,
-        chapterRead: +chap.slice(5)
+        chapterRead: +chap.slice(5),
       });
-
 
       if (isAuthenticated) increaseExperenceMutation.mutate(chapter?.id);
     }, 10000);
@@ -144,7 +128,7 @@ function ChapterDetail() {
     increaseViewMutation,
     increaseExperenceMutation,
     updateReadingHistoryMutation,
-    isAuthenticated
+    isAuthenticated,
   ]);
 
   //handle navigate when changing chapter

@@ -9,7 +9,8 @@ import SliderCard from "./SliderCard/SliderCard";
 import PrimaryHeading from "../Heading/PrimaryHeading/PrimaryHeading";
 
 import styles from "./SliderHome.module.scss";
-import Sdata from "./Sdata";
+import { useQuery } from "@tanstack/react-query";
+import { getFeaturedStories } from "@/api/storyApi";
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,11 @@ function PrevArrow(props) {
 }
 
 function SliderHome() {
+  const {data} = useQuery({
+    queryKey: ["featuredStories"],
+    queryFn: getFeaturedStories
+  })
+
   const settings = {
     dots: false,
     infinite: true,
@@ -74,8 +80,8 @@ function SliderHome() {
 
       <div className={cx("slider")}>
         <Slider {...settings}>
-          {Sdata.map((item, key) => {
-            return <SliderCard item={item} key={key} />;
+          {data && data.map(item => {
+            return <SliderCard data={item} key={data.id} />;
           })}
         </Slider>
       </div>

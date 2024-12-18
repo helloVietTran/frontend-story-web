@@ -7,7 +7,6 @@ import { faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./PrimaryListItem.module.scss";
 import useTheme from "@/customHook/useTheme";
-import formatNumber from "@/utils/formatNumber";
 
 const cx = classNames.bind(styles);
 
@@ -55,7 +54,7 @@ const PrimaryListItem = ({
           {hasViewCount && (
             <span className={cx("view")}>
               <FontAwesomeIcon icon={faEye} />
-              {formatNumber(data.viewCount)}
+              {data.viewCount}
             </span>
           )}
         </div>

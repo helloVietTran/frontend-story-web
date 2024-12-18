@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 
 import axiosInstance from '@/api/axiosConfig';
 
-// thunk này gửi request đến server check access token còn hợp lệ không
 export const introspect = createAsyncThunk("auth/introspect", async (_, thunkAPI) => {
   const token = Cookies.get("reading_web_jwt");
   if (!token) {
@@ -26,10 +25,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     isAuthenticated: false,
-    user: null,// lấy từ cache 
   },
   reducers: {
-    // Action login: cập nhật state người dùng và cookie
     login: (state, action) => {
       const { accessToken, refreshToken } = action.payload;
     
@@ -37,7 +34,7 @@ const authSlice = createSlice({
       Cookies.set("reading_web_refreshToken", refreshToken, { expires: 1 });
 
       state.isAuthenticated = true;
-      //state.user = user;
+
     },
     // Action logout: xóa state và cookie
     logout: (state) => {
@@ -45,7 +42,6 @@ const authSlice = createSlice({
       Cookies.remove("reading_web_refreshToken");
 
       state.isAuthenticated = false;
-      state.user = null;
     },
   },
   extraReducers: (builder) => {

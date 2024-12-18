@@ -32,6 +32,7 @@ function FindStory() {
   const queryParams = new URLSearchParams(location.search);
   const status = queryParams.get("status");
   const sort = queryParams.get("sort");
+  const keyword = queryParams.get('keyword');
 
   useEffect(() => {
     const checkValidUrl = options.filter((option) =>
@@ -47,7 +48,7 @@ function FindStory() {
 
 
   const {data} = useQuery({
-    queryKey: ["filterStory", genreCode, status, sort],
+    queryKey: ["filterStory", genreCode, status, sort, keyword],
     queryFn: createQueryFn(findStory),
     retryDelay: ()=> 3000
   })

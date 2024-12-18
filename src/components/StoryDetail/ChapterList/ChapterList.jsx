@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,11 +10,28 @@ import Col from "@/components/Layout/Col/Col";
 
 import useTheme from "@/customHook/useTheme";
 import styles from "./ChapterList.module.scss";
+import getReadingHistoriesFromLocal from "@/utils/getReadingHistoryFromLocal";
 
 const cx = classNames.bind(styles);
 
 const ChapterList = ({ data, viewMore, setViewMore }) => {
+  const { storyID } = useParams();
   const themeClassName = useTheme(cx);
+  const [localReadingHistories, setLocalReadingHistories] = useState([]);
+
+  useEffect(() => {
+    setLocalReadingHistories(getReadingHistoriesFromLocal());
+  }, [setLocalReadingHistories]);
+
+  const hasReadChapter = useMemo(
+    () => (storyId, chapter) => {
+      if (!localReadingHistories) return false;
+      return localReadingHistories.some(
+        (item) => item.id === +storyId && item.chaptersRead.includes(chapter)
+      );
+    },
+    [localReadingHistories]
+  );
   return (
     <Col sizeXs={12}>
       <div className={cx("chapter-list", themeClassName)}>
@@ -35,19 +52,22 @@ const ChapterList = ({ data, viewMore, setViewMore }) => {
             {data &&
               data.map((item) => {
                 return (
-                  <li className={cx("chapter-item")} key={item.id}>
+                  <li
+                    className={
+                      hasReadChapter(storyID, item.chap)
+                        ? cx("chapter-item", "read")
+                        : cx("chapter-item")
+                    }
+                    key={item.id}
+                  >
                     <Row>
                       <Col sizeXs={5}>
-                        <Link
-                          to={`chap-${item.chap}`}
-                        >
+                        <Link to={`chap-${item.chap}`}>
                           {"Chapter " + item.chap}
                         </Link>
                       </Col>
                       <Col sizeXs={4}>
-                        <span className={cx("small")}>
-                          {item.updatedAt}
-                        </span>
+                        <span className={cx("small")}>{item.updatedAt}</span>
                       </Col>
 
                       <Col sizeXs={3}>
@@ -77,7 +97,6 @@ const ChapterList = ({ data, viewMore, setViewMore }) => {
 ChapterList.propTypes = {
   viewMore: PropTypes.bool.isRequired,
   setViewMore: PropTypes.func.isRequired,
-  action: PropTypes.func.isRequired,
   data: PropTypes.any,
 };
 

@@ -3,7 +3,8 @@ import axiosInstance from "./axiosConfig";
 const userPrefix = "/users";
 
 export const createUser = async (data) => {
-    await axiosInstance.post(`${userPrefix}/register`, data);
+    const res = await axiosInstance.post(`${userPrefix}/register`, data);
+    return res.data.result;
 };
 
 export const getMyInfo = async () => {
@@ -62,6 +63,12 @@ export const changePassword = async (changePasswordData) => {
     await axiosInstance.patch(`${userPrefix}/change-password`, changePasswordData);
 }   
 
-export const findByGenre = async({queryCode, sort, status}) => {
 
+export const forgotPassword = async (email) => {
+    await axiosInstance.post(`${userPrefix}/forgot-password`, email);
+    
+}
+export const resetPassword = async(data) => {
+    console.log(data);
+    await axiosInstance.patch(`${userPrefix}/reset-password`, data);
 }

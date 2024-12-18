@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
@@ -32,6 +32,13 @@ const CommentItem = ({ data: comment, isReply = false }) => {
   const [openCommentForms, setOpenCommentForms] = useState({});
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
+
+  const queryClient = useQueryClient();
+
+  const {storyID} = useParams();
+  const [searchParams] = useSearchParams();
+  
+    const page = searchParams.get("page") || 1;
 
   const handleReplyClick = (commentId) => {
     setOpenCommentForms((prevState) => ({
@@ -77,6 +84,7 @@ const CommentItem = ({ data: comment, isReply = false }) => {
   const likeMutation = useMutation({
     mutationFn: likeComment,
     onSuccess: () => {
+      queryClient.invalidateQueries( ["storyComments", storyID, page]);
     },
     onError: () => {
       toast.error("Vui lòng thử lại sau!", {
@@ -87,7 +95,9 @@ const CommentItem = ({ data: comment, isReply = false }) => {
 
   const dislikeMutation = useMutation({
     mutationFn: dislikeComment,
-    onSuccess: () => {},
+    onSuccess: () => {
+      queryClient.invalidateQueries( ["storyComments", storyID, page]);
+    },
     onError: () => {
       toast.error("Vui lòng thử lại sau!", {
         style,
@@ -216,8 +226,8 @@ const CommentItem = ({ data: comment, isReply = false }) => {
           hasDistance
           onClose={handleCloseForm}
           atChapter={comment.atChapter}
-          replyTo={isReply ? comment.replyTo : ""}
-          parentCommentId={isReply ? comment.parentCommentId : ""}
+          replyTo={ comment.user.name }
+          parentCommentId={comment.id}
         />
       )}
     </div>
